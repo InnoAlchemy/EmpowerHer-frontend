@@ -1,0 +1,36 @@
+# EmpoweHer Frontend 
+
+This is a React frontend application built using Vite, Tailwind CSS, and other modern libraries.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Project Structure](#project-structure)
+
+## Installation
+
+To get started with this application, follow these steps:
+
+
+1. Clone the repository.
+2. Install the dependencies using `npm install`.
+3. Start the development server using `npm start`.
+
+## Project Structure
+empowher-frontend/
+├── public/                  # Static files and assets
+├── src/                     # Source files
+│   ├── assets/              # Images and other assets
+│   ├── components/          # Reusable components
+│   │   ├── HomeFooter.jsx   # Footer component for the home page
+│   │   └── HomeNavbar.jsx   # Navbar component for the home page
+│   ├── pages/               # Different pages of the application
+│   │   └── HomePage.jsx     # Home page component
+│   ├── App.jsx              # Main component where routes are defined
+│   ├── index.css            # Global CSS styles
+│   └── main.jsx             # Root of the application
+├── index.html               # Main HTML file
+├── package.json             # Project metadata and dependencies
+├── postcss.config.js        # PostCSS configuration file
+├── tailwind.config.js       # Tailwind CSS configuration file
+└── vite.config.js           # Vite configuration file
