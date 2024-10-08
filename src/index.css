@@ -2,9 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom global styles for width and height */
-.page-container {
-  width: 1280px;
-  height: 3438px;
-  margin: 0 auto; /* Centers the container horizontally */
-}

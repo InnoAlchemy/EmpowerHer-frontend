@@ -1,11 +1,11 @@
 import React from 'react';
-import HomeNavbar from '../components/home/home-navbar'; // Assuming you have a separate component for the Navbar
-import HomeFooter from '../components/home/home-footer';
+import Navbar from '../components/home/navbar'; // Assuming you have a separate component for the Navbar
+import Footer from '../components/home/footer';
 
 const Home = () => {
   return (
-    <div className="page-container bg-white">
-      <HomeNavbar />
+    <div className="min-h-screen flex flex-col bg-transparent">
+      <Navbar />
 
       {/* Hero Section
       
@@ -98,7 +98,7 @@ const Home = () => {
      
 
       {/* Footer */}
-      <HomeFooter />
+      <Footer />
     </div>
   );
 };
