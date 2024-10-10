@@ -14,230 +14,48 @@ const Home = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div
-        className="flex-grow bg-cover bg-center h-[633px] w-full"
-        style={{ backgroundImage: `url(${image1})` }}
-      >
-        <div className="flex items-center justify-center h-full">
-          {/* Page Control */}
-          <div className="absolute w-[170.73px] h-[75.12px] top-[630px] left-[700px] p-[17.51px_5.49px_16.63px_1.34px]  ">
-            {/* Frame */}
-            <div className="w-auto h-auto p-[13.66px_20.49px] flex gap-[13.66px] rounded-[85.36px] backdrop-blur-[68.29px] bg-[#7A89C2]">
-              {/* Platter */}
-              <div className="w-[163.9px] h-[40.97px] flex items-center justify-between rounded-[170.73px] ">
-                {/* Dots */}
-                {[...Array(5)].map((_, index) => (
-                  <div
-                    key={index}
-                    className={`w-[13.66px] h-[13.66px] rounded-[85.36px] bg-black ${
-                      index === 0 ? "opacity-100" : "opacity-[0.3]"
-                    }`}
-                  ></div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Frame 297 */}
-          <div className="relative w-[1198px] h-[400px] flex justify-between top-[1px] left-[1px] ">
-            {/* Frame 35 */}
-            <div className="w-[319px] h-auto flex flex-col gap-[30px] ">
-              {/* Text Block */}
-              <div className="w-[325px] h-auto text-left">
-                <h1 className="font-cabin text-[40px] font-medium leading-[48.6px] text-[#7A89C2]">
-                  Be Part of the <br />
-                  Movement to Empower Women <br />
-                  Worldwide!
-                </h1>
-              </div>
-
-              {/* Button */}
-              <button
-                className="w-[281px] h-[45px] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] 
-                           text-white text-[20px] font-semibold leading-[24.3px] 
-                           py-[10px] px-[57px] rounded-[15px] border-t border-solid border-[#7A89C2] whitespace-nowrap"
-              >
-                Become a Member!
-              </button>
-            </div>
-
-            {/* Frame 31 */}
-            <div className="w-[407px] h-[287px] flex flex-col justify-between gap-[30px] ">
-              {/* Text: Global Launch in */}
-              <h1 className="text-center text-[#7A89C2] font-cabin text-[35px] font-medium leading-[42.53px]">
-                Global Launch in
-              </h1>
-
-              {/* Group 15 */}
-              <div className="w-[407px] h-[214px] rounded-tl-[7px] ">
-                {/* Group 12 */}
-                <div className="absolute w-[109px] h-[96px] mx-auto rounded-tl-[7px] ">
-                  <div className="absolute w-[73px] h-[24px] top-[233px] left-[167px] rounded-tl-[7px] ">
-                    <p className=" top-[72px] left-[35px] text-[#7A89C2] font-cabin text-[20px] font-medium leading-[24.3px]">
-                      Seconds
-                    </p>
-                  </div>
-
-                  {/* Group 8 */}
-                  <div className="absolute w-[47px] h-[62px] top-[191px] left-[149px] rounded-tl-[7px] ">
-                    {/* Stacked Frames */}
-                    <div className="relative">
-                      {/* Frame 20 */}
-                      <div className="w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-
-                      {/* Frame 19 on top of Frame 20 */}
-                      <div className="absolute top-[-31.21px] w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-                    </div>
-                    {/* Text: 2 inside Group 8 */}
-                    <span className="absolute top-[-25px] left-[12px] text-white font-bowlby-one text-[40px] leading-[46.99px]">
-                      2
-                    </span>
-                  </div>
-                  {/* Group 9 */}
-                  <div className="absolute w-[47px] h-[62px] top-[191px] left-[211px] rounded-tl-[7px] ">
-                    {/* Stacked Frames */}
-                    <div className="relative">
-                      {/* Frame 20 */}
-                      <div className="w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-
-                      {/* Frame 19 on top of Frame 20 */}
-                      <div className="absolute top-[-31.21px] w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-                    </div>
-                    {/* Text: 9 inside Group 9 */}
-                    <span className="absolute top-[-25px] left-[12px] text-white font-bowlby-one text-[40px] leading-[46.99px]">
-                      9
-                    </span>
-                  </div>
-                </div>
-                {/* Group 14 */}
-                <div className="absolute w-[407px] h-[96px] top-[73px] rounded-[7px] ">
-                  {/* Group 11 */}
-                  <div className="absolute w-[109px] h-[96px] top-[110px] left-[320px] rounded-tl-[7px] ">
-                    <p className=" top-[145px] left-[318px] text-[#7A89C2] font-cabin text-[20px] font-medium leading-[24.3px]">
-                      Minutes
-                    </p>
-                  </div>
-                  {/* Group 8 */}
-                  <div className="absolute w-[47px] h-[62px] top-[73px] left-[298px] rounded-tl-[7px] ">
-                    {/* Stacked Frames */}
-                    <div className="relative">
-                      {/* Frame 20 */}
-                      <div className="w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-
-                      {/* Frame 19 on top of Frame 20 */}
-                      <div className="absolute top-[-31.21px] w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-                    </div>
-                    {/* Text: 2 inside Group 8 */}
-                    <span className="absolute top-[-25px] left-[12px] text-white font-bowlby-one text-[40px] leading-[46.99px]">
-                      3
-                    </span>
-                  </div>
-                  {/* Group 9 */}
-                  <div className="absolute w-[47px] h-[62px] top-[73px] left-[360px] rounded-tl-[7px] ">
-                    {/* Stacked Frames */}
-                    <div className="relative">
-                      {/* Frame 20 */}
-                      <div className="w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-
-                      {/* Frame 19 on top of Frame 20 */}
-                      <div className="absolute top-[-31.21px] w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-                    </div>
-                    {/* Text: 9 inside Group 9 */}
-                    <span className="absolute top-[-25px] left-[12px] text-white font-bowlby-one text-[40px] leading-[46.99px]">
-                      0
-                    </span>
-                  </div>
-
-                  {/* Group 10 */}
-                  <div className="absolute w-[109px] h-[96px] top-[110px] left-[178px] rounded-tl-[7px] ">
-                    <p className=" top-[145px] left-[178px] text-[#7A89C2] font-cabin text-[20px] font-medium leading-[24.3px]">
-                      Hours
-                    </p>
-                  </div>
-                  {/* Group 8 */}
-                  <div className="absolute w-[47px] h-[62px] top-[73px] left-[149px] rounded-tl-[7px] ">
-                    {/* Stacked Frames */}
-                    <div className="relative">
-                      {/* Frame 20 */}
-                      <div className="w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-
-                      {/* Frame 19 on top of Frame 20 */}
-                      <div className="absolute top-[-31.21px] w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-                    </div>
-                    {/* Text: 1 inside Group 8 */}
-                    <span className="absolute top-[-25px] left-[12px] text-white font-bowlby-one text-[40px] leading-[46.99px]">
-                      1
-                    </span>
-                  </div>
-                  {/* Group 9 */}
-                  <div className="absolute w-[47px] h-[62px] top-[73px] left-[211px] rounded-tl-[7px] ">
-                    {/* Stacked Frames */}
-                    <div className="relative">
-                      {/* Frame 20 */}
-                      <div className="w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-
-                      {/* Frame 19 on top of Frame 20 */}
-                      <div className="absolute top-[-31.21px] w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-                    </div>
-                    {/* Text: 6 inside Group 9 */}
-                    <span className="absolute top-[-25px] left-[12px] text-white font-bowlby-one text-[40px] leading-[46.99px]">
-                      6
-                    </span>
-                  </div>
-
-                  {/* Group 13 */}
-                  <div className="absolute w-[109px] h-[96px] top-[110px] left-[46px] rounded-tl-[7px] ">
-                    <p className=" top-[145px] left-[178px] text-[#7A89C2] font-cabin text-[20px] font-medium leading-[24.3px]">
-                      Days
-                    </p>
-                  </div>
-                  {/* Group 8 */}
-                  <div className="absolute w-[47px] h-[62px] top-[73px] left-[68px] rounded-tl-[7px] ">
-                    {/* Stacked Frames */}
-                    <div className="relative">
-                      {/* Frame 20 */}
-                      <div className="w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-
-                      {/* Frame 19 on top of Frame 20 */}
-                      <div className="absolute top-[-31.21px] w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-                    </div>
-                    {/* Text: 8 inside Group 8 */}
-                    <span className="absolute top-[-25px] left-[12px] text-white font-bowlby-one text-[40px] leading-[46.99px]">
-                      8
-                    </span>
-                  </div>
-                  {/* Group 9 */}
-                  <div className="absolute w-[47px] h-[62px] top-[73px] left-[5px] rounded-tl-[7px] ">
-                    {/* Stacked Frames */}
-                    <div className="relative">
-                      {/* Frame 20 */}
-                      <div className="w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-
-                      {/* Frame 19 on top of Frame 20 */}
-                      <div className="absolute top-[-31.21px] w-[47px] h-[31.21px] bg-[#7A89C2] rounded-[7px]"></div>
-                    </div>
-                    {/* Text: 5 inside Group 9 */}
-                    <span className="absolute top-[-25px] left-[12px] text-white font-bowlby-one text-[40px] leading-[46.99px]">
-                      5
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <section
+  className="flex-grow bg-cover bg-center h-[600px] w-full"
+  style={{ backgroundImage: `url(${image1})` }}
+>
+  <div className="flex items-center justify-center h-full">
+    {/* Frame 297 */}
+    <div className="relative flex flex-col items-center justify-center w-full max-w-[1198px] h-auto p-4">
+      {/* Frame 35 */}
+      <div className="flex flex-col items-center gap-8 w-full">
+        {/* Text Block */}
+        <div className="text-center">
+          <h1 className="font-cabin text-[40px] font-medium leading-[48.6px] text-[#7A89C2]">
+            Be Part of the <br />
+            Movement to Empower Women <br />
+            Worldwide!
+          </h1>
         </div>
+
+        {/* Button */}
+        <button
+          className="w-[281px] h-[45px] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] 
+                     text-white text-[20px] font-semibold leading-[24.3px] 
+                     py-[10px] px-[57px] rounded-[15px] border-t border-solid border-[#7A89C2] whitespace-nowrap"
+        >
+          Become a Member!
+        </button>
       </div>
+    </div>
+  </div>
+</section>
+
 
       {/* About Us Section*/}
       <div className="w-[auto] h-[auto]">
-        <section className="py-20 px-5 sm:px-10 h-auto flex flex-col md:flex-row">
+      <section className="py-10 px-5 sm:px-10 h-auto flex flex-col md:flex-row">
           {/* Left Side - Image and Button */}
           <div className="flex-none w-full md:w-1/2 h-auto gap-3 mb-6 md:mb-0">
             <div className="w-full h-full bg-white rounded-lg p-3 flex flex-col items-center">
               <img
                 src={Frame21}
                 alt="Team member"
-                className="w-[320px] h-auto mt-4"
+                className="w-[320px] h-[500px] mt-4"
               />
 
               <button className="mt-6 w-[281px] h-[55px] flex items-center justify-center border border-[#7A89C2] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] rounded-lg">
@@ -250,11 +68,11 @@ const Home = () => {
 
           {/* Right Side - About Us Text */}
           <div className="flex-1 max-w-[953px] h-auto gap-10">
-            <h2 className="text-6xl sm:text-6xl md:text-8xl text-left text-[#7A89C2] font-brice mb-8">
+          <h2 className="text-6xl sm:text-6xl md:text-8xl text-left text-[#7A89C2] font-brice mb-4">
               ABOUT US
             </h2>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <h3 className="text-xl sm:text-2xl font-semibold text-left text-[#7A89C2]">
                 Get to Know Us: Our Story and Team
               </h3>
@@ -289,15 +107,15 @@ const Home = () => {
         </section>
 
         {/* Team Section */}
-        <section className="py-20 px-5 sm:px-10 md:px-20 lg:px-40">
+        <section className="py-10 px-5 sm:px-10 md:px-20 lg:px-40">
           <div className="h-auto gap-10 flex flex-col items-center">
             {/* Title */}
-            <h2 className="text-center text-[#7A89C2] font-brice text-3xl sm:text-4xl lg:text-5xl mb-8 sm:mb-10 lg:mb-14 font-bold">
+            <h2 className="text-center text-[#7A89C2] font-brice text-3xl sm:text-4xl lg:text-5xl mb-8 sm:mb-10 lg:mb-10 font-bold">
               Meet Our Team
             </h2>
 
             {/* Team Members */}
-            <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8"> 
               {/* Team Member 1 */}
               <div className="flex flex-col items-center w-[280px] sm:w-[316px] h-[320px] rounded-[15px] bg-[#00000008] shadow-[0px_6px_6px_-2px_rgba(0,0,0,0.25)]">
                 <img
@@ -347,12 +165,12 @@ const Home = () => {
         </section>
 
         {/* Trending Articles Section */}
-        <section className="py-40 px-5 sm:px-10 md:px-20 lg:px-40 w-full h-auto gap-[50px]">
+        <section className="py-5 px-5 sm:px-10 md:px-20 lg:px-40 w-full h-auto">
   <h2 className="font-brice text-[30px] sm:text-[35px] md:text-[40px] font-normal leading-[1.4] text-center text-[#7A89C2] mb-8">
     Trending Articles
   </h2>
 
-  <div className="flex flex-col items-center sm:flex-row sm:justify-center gap-10">
+  <div className="flex flex-col items-center sm:flex-row sm:justify-center gap-8">
     {/* First Article */}
     <div className="max-w-xs bg-white shadow-md w-full sm:w-[332px] h-auto">
       <img
@@ -424,131 +242,133 @@ const Home = () => {
   </div>
 
   <div className="flex justify-center mt-8">
-    <button className="w-full sm:w-[133px] h-[36px] py-[6px] px-[32px] gap-[10px] rounded-[15px] border-t border-[#7A89C2] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2]">
-      <span className="text-left text-white font-cabin text-[20px] font-semibold leading-[24.3px] w-full sm:w-[69px] h-[24px] whitespace-nowrap">
-        View All
-      </span>
-    </button>
-  </div>
+  <button className="w-full sm:w-[133px] lg:w-[200px] h-[50px] rounded-[15px] border-t border-[#7A89C2] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] flex items-center justify-center">
+    <span className="text-white font-cabin text-[20px] font-semibold leading-[24.3px]">
+      View All
+    </span>
+  </button>
+</div>
+
+
 </section>
 
         {/* Events Section */}
-        <section className="py-10 px-2 md:px-10 lg:px-20 h-auto w-full">
-          {/* Title */}
-          <h2 className="text-3xl md:text-5xl text-center text-[#7A89C2] font-semibold mb-12 h-[86px]">
-            Our upcoming events and activities
-          </h2>
+       
+        <section className="py-10 px-5 sm:px-10 md:px-20 lg:px-40 h-auto w-full">
+  {/* Title */}
+  <h2 className="text-3xl md:text-5xl text-center text-[#7A89C2] font-semibold mb-16">
+    Our upcoming events and activities
+  </h2>
 
-          <div className="relative flex flex-col items-center md:flex-row justify-center gap-10 mt-6">
-            {/* Event Card 1 */}
-            <div className="relative w-full sm:max-w-md md:max-w-xs lg:max-w-sm h-auto">
-              {/* Date Section for Card 1 */}
-              <div className="absolute -top-12 left-1/3 transform -translate-x-1/2 flex items-center z-10">
-                <div className="bg-[#7A89C2] text-white rounded-full w-[30px] h-[30px] sm:w-[70px] sm:h-[70px] md:w-[83px] md:h-[83px] flex items-center justify-center text-xl sm:text-2xl md:text-3xl font-bold">
-                  7
-                </div>
-                <div className="ml-4 bg-[#F7F7F7] text-[#7A89C2] py-1 sm:py-2 px-4 rounded-[15px] text-[12px] sm:text-[20px] md:text-[25px] font-normal leading-tight sm:leading-[30.37px] text-center">
-                  October 2024
-                </div>
-              </div>
+  <div className="flex flex-col items-center sm:flex-row sm:justify-center gap-8">
+    {/* Event Card 1 */}
+    <div className="relative max-w-xs bg-white shadow-md w-full">
+      {/* Date Section for Card 1 */}
+      <div className="absolute top-[-40px] left-1/3 transform -translate-x-1/2 flex items-center z-10">
+        <div className="bg-[#7A89C2] text-white rounded-full w-[70px] h-[70px] flex items-center justify-center text-2xl font-bold">
+          7
+        </div>
+        <div className="bg-[#F7F7F7] text-[#7A89C2] py-2 px-4 rounded-[15px] text-[20px] font-normal text-center whitespace-nowrap">
+          October 2024
+        </div>
+      </div>
 
-              <div className="bg-white shadow-md rounded-lg overflow-hidden h-auto">
-                <div
-                  className="bg-cover bg-center h-[300px] sm:h-[350px] md:h-[400px]"
-                  style={{ backgroundImage: `url(${upcoming})` }}
-                >
-                  <div className="p-6 text-center bg-gradient-to-t from-white to-transparent h-full flex flex-col justify-end">
-                    <p className="text-[#7A89C2] font-bold text-lg sm:text-xl">
-                      MEET & GREET
-                    </p>
-                    <p className="text-[#7A89C2] text-sm sm:text-base mt-2">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Sed do eiusmod tempor incididunt ut labore et dolore.
-                    </p>
-                    <p className="text-[#7A89C2] font-bold text-md sm:text-lg mt-4">
-                      5 PM - 7 PM
-                    </p>
-                    <button className="mt-6 bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white py-2 px-4 rounded-md w-full">
-                      Register Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Event Card 2 */}
-            <div className="relative w-full sm:max-w-md md:max-w-xs lg:max-w-sm h-auto">
-              {/* Date Section for Card 2 */}
-              <div className="absolute -top-12 left-1/3 transform -translate-x-1/2 flex items-center z-10">
-                <div className="bg-[#7A89C2] text-white rounded-full w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[83px] md:h-[83px] flex items-center justify-center text-xl sm:text-2xl md:text-3xl font-bold">
-                  14
-                </div>
-                <div className="ml-4 bg-[#F7F7F7] text-[#7A89C2] py-1 sm:py-2 px-4 rounded-tl-[15px] text-[16px] sm:text-[20px] md:text-[25px] font-normal leading-tight sm:leading-[30.37px] text-center">
-                  October 2024
-                </div>
-              </div>
-
-              <div className="bg-white shadow-md rounded-lg overflow-hidden h-auto">
-                <div
-                  className="bg-cover bg-center h-[300px] sm:h-[350px] md:h-[400px]"
-                  style={{ backgroundImage: `url(${upcoming})` }}
-                >
-                  <div className="p-6 text-center bg-gradient-to-t from-white to-transparent h-full flex flex-col justify-end">
-                    <p className="text-[#7A89C2] font-bold text-lg sm:text-xl">
-                      NETWORKING EVENT
-                    </p>
-                    <p className="text-[#7A89C2] text-sm sm:text-base mt-2">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Sed do eiusmod tempor incididunt ut labore et dolore.
-                    </p>
-                    <p className="text-[#7A89C2] font-bold text-md sm:text-lg mt-4">
-                      3 PM - 5 PM
-                    </p>
-                    <button className="mt-6 bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white py-2 px-4 rounded-md w-full">
-                      Register Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Event Card 3 */}
-            <div className="relative w-full sm:max-w-md md:max-w-xs lg:max-w-sm h-auto">
-              {/* Date Section for Card 3 */}
-              <div className="absolute -top-12 left-1/3 transform -translate-x-1/2 flex items-center z-10">
-                <div className="bg-[#7A89C2] text-white rounded-full w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[83px] md:h-[83px] flex items-center justify-center text-xl sm:text-2xl md:text-3xl font-bold">
-                  21
-                </div>
-                <div className="ml-4 bg-[#F7F7F7] text-[#7A89C2] py-1 sm:py-2 px-4 rounded-tl-[15px] text-[16px] sm:text-[20px] md:text-[25px] font-normal leading-tight sm:leading-[30.37px] text-center">
-                  October 2024
-                </div>
-              </div>
-
-              <div className="bg-white shadow-md rounded-lg overflow-hidden h-auto">
-                <div
-                  className="bg-cover bg-center h-[300px] sm:h-[350px] md:h-[400px]"
-                  style={{ backgroundImage: `url(${upcoming})` }}
-                >
-                  <div className="p-6 text-center bg-gradient-to-t from-white to-transparent h-full flex flex-col justify-end">
-                    <p className="text-[#7A89C2] font-bold text-lg sm:text-xl">
-                      WORKSHOP
-                    </p>
-                    <p className="text-[#7A89C2] text-sm sm:text-base mt-2">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Sed do eiusmod tempor incididunt ut labore et dolore.
-                    </p>
-                    <p className="text-[#7A89C2] font-bold text-md sm:text-lg mt-4">
-                      10 AM - 12 PM
-                    </p>
-                    <button className="mt-6 bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white py-2 px-4 rounded-md w-full">
-                      Register Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="bg-white shadow-md rounded-lg overflow-hidden h-auto">
+        <div
+          className="bg-cover bg-center h-[300px] sm:h-[350px] md:h-[400px]"
+          style={{ backgroundImage: `url(${upcoming})` }}
+        >
+          <div className="p-6 text-center bg-gradient-to-t from-white to-transparent h-full flex flex-col justify-end">
+            <p className="text-[#7A89C2] font-bold text-lg sm:text-xl">
+              MEET & GREET
+            </p>
+            <p className="text-[#7A89C2] text-sm sm:text-base mt-2">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore.
+            </p>
+            <p className="text-[#7A89C2] font-bold text-md sm:text-lg mt-4">
+              5 PM - 7 PM
+            </p>
+            <button className="mt-6 bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white py-2 px-4 rounded-md w-full">
+              Register Now
+            </button>
           </div>
-        </section>
+        </div>
+      </div>
+    </div>
+
+    {/* Event Card 2 */}
+    <div className="relative max-w-xs bg-white shadow-md w-full">
+      {/* Date Section for Card 2 */}
+      <div className="absolute top-[-40px] left-1/3 transform -translate-x-1/2 flex items-center z-10">
+        <div className="bg-[#7A89C2] text-white rounded-full w-[70px] h-[70px] flex items-center justify-center text-2xl font-bold">
+          14
+        </div>
+        <div className="bg-[#F7F7F7] text-[#7A89C2] py-2 px-4 rounded-[15px] text-[20px] font-normal text-center whitespace-nowrap">
+          October 2024
+        </div>
+      </div>
+
+      <div className="bg-white shadow-md rounded-lg overflow-hidden h-auto">
+        <div
+          className="bg-cover bg-center h-[300px] sm:h-[350px] md:h-[400px]"
+          style={{ backgroundImage: `url(${upcoming})` }}
+        >
+          <div className="p-6 text-center bg-gradient-to-t from-white to-transparent h-full flex flex-col justify-end">
+            <p className="text-[#7A89C2] font-bold text-lg sm:text-xl">
+              NETWORKING EVENT
+            </p>
+            <p className="text-[#7A89C2] text-sm sm:text-base mt-2">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore.
+            </p>
+            <p className="text-[#7A89C2] font-bold text-md sm:text-lg mt-4">
+              3 PM - 5 PM
+            </p>
+            <button className="mt-6 bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white py-2 px-4 rounded-md w-full">
+              Register Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Event Card 3 */}
+    <div className="relative max-w-xs bg-white shadow-md w-full">
+      {/* Date Section for Card 3 */}
+      <div className="absolute top-[-40px] left-1/3 transform -translate-x-1/2 flex items-center z-10">
+        <div className="bg-[#7A89C2] text-white rounded-full w-[70px] h-[70px] flex items-center justify-center text-2xl font-bold">
+          21
+        </div>
+        <div className="bg-[#F7F7F7] text-[#7A89C2] py-2 px-4 rounded-[15px] text-[20px] font-normal text-center whitespace-nowrap">
+          October 2024
+        </div>
+      </div>
+
+      <div className="bg-white shadow-md rounded-lg overflow-hidden h-auto">
+        <div
+          className="bg-cover bg-center h-[300px] sm:h-[350px] md:h-[400px]"
+          style={{ backgroundImage: `url(${upcoming})` }}
+        >
+          <div className="p-6 text-center bg-gradient-to-t from-white to-transparent h-full flex flex-col justify-end">
+            <p className="text-[#7A89C2] font-bold text-lg sm:text-xl">
+              WORKSHOP
+            </p>
+            <p className="text-[#7A89C2] text-sm sm:text-base mt-2">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore.
+            </p>
+            <p className="text-[#7A89C2] font-bold text-md sm:text-lg mt-4">
+              10 AM - 12 PM
+            </p>
+            <button className="mt-6 bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white py-2 px-4 rounded-md w-full">
+              Register Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
       </div>
 
       {/* Footer */}
