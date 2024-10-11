@@ -5,8 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        amsterdam: ['Amsterdam', 'sans-serif'], // Add your custom font here
+      },
+    },
   },
   plugins: [],
 }
-
