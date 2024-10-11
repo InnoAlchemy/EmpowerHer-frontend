@@ -24,6 +24,8 @@ empowher-frontend/
 │   ├── components/          # Reusable components
 │   │   ├── HomeFooter.jsx   # Footer component for the home page
 │   │   └── HomeNavbar.jsx   # Navbar component for the home page
+│   ├── helper-functions/    # Folder for helper functions
+│   │   └── formatter.js     # File for formatting functions
 │   ├── pages/               # Different pages of the application
 │   │   └── HomePage.jsx     # Home page component
 │   ├── App.jsx              # Main component where routes are defined
@@ -34,3 +36,4 @@ empowher-frontend/
 ├── postcss.config.js        # PostCSS configuration file
 ├── tailwind.config.js       # Tailwind CSS configuration file
 └── vite.config.js           # Vite configuration file
+
