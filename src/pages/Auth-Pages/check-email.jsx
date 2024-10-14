@@ -7,10 +7,9 @@ import svgImage from "../../assets/SVGRepo_iconCarrier.png";
 import vectorImage from "../../assets/vector.png";
 import group1Image from "../../assets/Group1.png";
 import group2Image from "../../assets/Group2.png";
-import google from "../../assets/google.png";
-import linkedin from "../../assets/linkedin.png";
+import checkEmail from "../../assets/check-email.gif";
 
-const SignIn = () => {
+const CheckEmail = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleLogoClick = () => {
@@ -18,9 +17,15 @@ const SignIn = () => {
     navigate("/home"); // Replace '/home' with your desired route
   };
 
-  const handleSignInClick = () => {
+  const handleOpenEmailAppClick = () => {
     // Placeholder for sign-in logic
-    console.log("Sign In Clicked");
+    console.log("open email Clicked");
+    // You can add actual sign-in logic here
+  };
+
+  const handleConfirmClick = () => {
+    // Placeholder for sign-in logic
+    console.log("confirmed Clicked");
     // You can add actual sign-in logic here
   };
 
@@ -42,84 +47,38 @@ const SignIn = () => {
         <div className="max-w-md w-full">
           {/* Social Media Icons */}
           <div className="flex flex-col items-center mb-8">
-            <h2 className="text-3xl font-bold text-center text-[#7A89C2] mb-6">
-              Sign In Using
+            <h2 className="text-3xl font-bold text-center text-[#7A89C2] mb-8">
+              Approval
             </h2>
 
-            <div className="flex items-center gap-6 mb-4">
-              <button className="w-14 h-14 flex items-center justify-center rounded-full bg-[#EAEAEA] p-2">
-                <img
-                  src={google}
-                  alt="Google"
-                  className="text-[#DB4437] text-[32px]"
-                />
-              </button>
-              <button className="w-14 h-14 flex items-center justify-center rounded-full bg-[#106FD3] p-2">
-                <img
-                  src={linkedin}
-                  alt="LinkedIn"
-                  className="text-[#106FD3] text-[32px]"
-                />
-              </button>
+            {/* Approval Image */}
+            <div className="flex justify-center md:justify-center mb-8">
+              <img src={checkEmail} alt="check-email" className="w-44 h-44" />
             </div>
 
-            <p className="text-center text-black font-cabin text-[20px] font-normal leading-[24.3px]">
-              or use your email account
+            <p className="text-center text-black font-cabin text-[20px] font-normal leading-[24.3px] whitespace-nowrap">
+            We have sent a password recover instructions<br />
+            to your email.
             </p>
           </div>
 
-          {/* Email Input */}
-          <div className="w-full mb-4">
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
-            />
-          </div>
-
-          {/* Password Input */}
-          <div className="w-full mb-4">
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
-            />
-          </div>
-
-          {/* Checkbox Section */}
-          <div className="flex justify-between items-center mb-4">
-            <div className="flex items-center">
-              <input type="checkbox" className="w-4 h-4 mr-2" />
-              <span className="text-sm font-normal text-[#00000099]">
-                Remember me
-              </span>
-            </div>
-            <span className="text-sm font-normal text-black">
-              Forgot your password?
-            </span>
-          </div>
-
-          {/* Sign In Button */}
+          {/* open email app Button */}
           <div className="flex justify-center mt-6">
             <button
-              onClick={handleSignInClick}
+              onClick={handleOpenEmailAppClick}
               className="w-1/2 h-12 rounded-full border border-[#7A89C2] bg-white text-[#7A89C2] font-bold hover:bg-[#7A89C2] hover:text-white transition duration-300"
             >
-              Sign In
+             Open Email App
             </button>
           </div>
-
-          {/* Registration Prompt */}
-          <div className="text-center mt-4">
-            <p className="font-cabin text-sm font-normal leading-[18.23px]">
-              Don’t have an account?{" "}
-              <Link
-                to="/signup" // Navigate to /signup
-                className="cursor-pointer underline text-[#7A89C2] transition duration-300 ease-in-out hover:text-[#5a6ab8]"
-              >
-                Register
-              </Link>
-            </p>
+          {/* confirmed  Button */}
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={handleConfirmClick}
+              className="w-1/2 h-12 rounded-full border border-[#7A89C2] bg-white text-[#7A89C2] font-bold hover:bg-[#7A89C2] hover:text-white transition duration-300"
+            >
+             Confirmed
+            </button>
           </div>
         </div>
       </div>
@@ -151,7 +110,6 @@ const SignIn = () => {
   alt="Welcome"
   className="absolute w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 top-2/3 transform -translate-y-1/2"
 />
-
 
         {/* Side and Bottom Images */}
         <div className="absolute w-full flex justify-between items-start h-full">
@@ -188,4 +146,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default CheckEmail;

@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        amsterdam: ['Amsterdam', 'sans-serif'], // Add your custom font here
+        amsterdam: ["Amsterdam", "sans-serif"],
+        cabin: ["Cabin", "sans-serif"],
       },
     },
   },

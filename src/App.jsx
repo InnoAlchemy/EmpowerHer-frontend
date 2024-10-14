@@ -7,6 +7,12 @@ import DiscoverHer from './pages/DiscoverHer';
 import InformationContacts from './pages/InformationContact';
 import SignIn from './pages/Auth-Pages/signin';
 import SignUp from './pages/Auth-Pages/signup';
+import Verification from './pages/Auth-Pages/verification';
+import PasswordResetRequest from './pages/Auth-Pages/reset-password-request';
+import PasswordResetPassword from './pages/Auth-Pages/reset-password-password';
+import Approval from './pages/Auth-Pages/approval';
+import CheckEmail from './pages/Auth-Pages/check-email';
+import RegistrationPage from './pages/Auth-Pages/registration-splash';
 const App = () => {
   return (
     <Routes>
@@ -17,6 +23,12 @@ const App = () => {
       <Route path='/contact-us' element={<InformationContacts />} />
       <Route path='/login' element={<SignIn />} />
       <Route path='/signup' element={<SignUp />} />
+      <Route path='/verification' element={<Verification />} />
+      <Route path='/password-reset-request' element={<PasswordResetRequest />} />
+      <Route path='/password-reset' element={<PasswordResetPassword />} />
+      <Route path='/approval' element={<Approval />} />
+      <Route path='/check-email' element={<CheckEmail />} />
+      <Route path='/registration-splash' element={<RegistrationPage />} /> 
     </Routes>
   );
 };
