@@ -16,9 +16,10 @@ import leave2 from "../../assets/Group2.png";
 import vector from "../../assets/Vector.png";
 
 const RegistrationPage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="w-screen h-screen bg-white flex flex-col md:flex-row">
+      <div className="bg-[#e4e7f3] absolute bottom-0 left-0 right-0 top-[40%]"></div>
       {/* Left Section */}
       <div className="relative w-full md:w-1/2 h-full flex flex-col justify-center items-center overflow-hidden">
         {/* Lamp at Top Center */}
@@ -105,7 +106,7 @@ const RegistrationPage = () => {
       {/* Right Section */}
       <div className="w-full md:w-1/2 h-full relative">
         {/* Upper Half (White Background) */}
-        <div className="h-1/2 bg-white relative">
+        <div className="h-1/2  relative">
           <img
             src={building}
             alt="Building 1"
@@ -130,7 +131,7 @@ const RegistrationPage = () => {
         </div>
 
         {/* Lower Half */}
-        <div className="h-1/2 bg-[#7A89C233] relative">
+        <div className="h-1/2  relative">
           <img
             src={agreement}
             alt="Handshake"
