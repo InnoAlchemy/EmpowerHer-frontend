@@ -1,5 +1,6 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"; // Import axios
 import logo from "../../assets/login-logo.png";
 import welcomeImage from "../../assets/welcome-logo.gif";
 import volunteeringImage from "../../assets/Group.png";
@@ -10,16 +11,48 @@ import group2Image from "../../assets/Group2.png";
 
 const PasswordResetRequest = () => {
   const navigate = useNavigate(); // Initialize useNavigate
+  const [email, setEmail] = useState(""); // State for email input
+  const [error, setError] = useState(""); // State for error messages
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
 
   const handleLogoClick = () => {
-    // Navigate to the home page or another desired route
-    navigate("/home"); // Replace '/home' with your desired route
+    navigate("/"); // Navigate to home page
   };
 
-  const handleSendClick = () => {
-    // Placeholder for sign-in logic
-    console.log("Send Clicked");
-    // You can add actual sign-in logic here
+  const handleSendClick = async () => {
+    if (!email) {
+      setError("Email is required.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/forgot-password",
+        { email }
+      );
+
+      // Save email and OTP to localStorage
+      localStorage.setItem("email", email);
+      if (response.data.otp) {
+        localStorage.setItem("otp", response.data.otp);
+      }
+
+      setSuccessMessage(
+        "Password reset instructions have been sent to your email."
+      );
+      setError(""); // Clear any previous errors
+      navigate("/password-reset"); // Navigate to the password reset page
+    } catch (error) {
+      console.error("Password reset request failed:", error);
+
+      const errorMessage =
+        error.response && error.response.data && error.response.data.message
+          ? error.response.data.message
+          : "Failed to send password reset request. Please try again.";
+
+      setError(errorMessage); // Display the error message
+      setSuccessMessage(""); // Clear success message if there was an error
+    }
   };
 
   return (
@@ -32,13 +65,11 @@ const PasswordResetRequest = () => {
           alt="Logo"
           className="w-44 h-auto cursor-pointer mb-6 md:absolute md:top-10 md:left-4 mx-auto md:mx-0"
           onClick={handleLogoClick}
-          style={{
-            animation: "ease-out 900ms",
-          }}
+          style={{ animation: "ease-out 900ms" }}
         />
 
         <div className="max-w-md w-full">
-          {/* Social Media Icons */}
+          {/* Title and Description */}
           <div className="flex flex-col items-center mb-8">
             <h2 className="text-3xl font-bold text-center text-[#7A89C2] mb-6">
               Reset Password
@@ -57,11 +88,19 @@ const PasswordResetRequest = () => {
             <input
               type="email"
               placeholder="Email"
-              className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={`w-full h-12 border ${
+                error ? "border-red-500" : "border-[#7A89C2]"
+              } rounded-full p-4`}
             />
+            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+            {successMessage && (
+              <p className="text-green-500 text-sm mt-1">{successMessage}</p>
+            )}
           </div>
 
-          {/* Sign In Button */}
+          {/* Send Button */}
           <div className="flex justify-center mt-6">
             <button
               onClick={handleSendClick}
@@ -75,16 +114,10 @@ const PasswordResetRequest = () => {
 
       {/* Right Side (Information or Image Section) */}
       <div className="w-full md:w-2/5 bg-[#7A89C2] flex flex-col items-center justify-start relative mt-6 md:mt-0 min-h-[calc(100vh-56px)]">
-        {/* SVG Image - Center Top */}
-        <img
-          src={svgImage}
-          alt="SVG"
-          className="w-20 h-24 mt-1" // Adjust the margin-top to fine-tune spacing
-        />
+        <img src={svgImage} alt="SVG" className="w-20 h-24 mt-1" />
 
-        {/* Welcome Text (Positioned Above the Welcome Image) */}
         <div className="absolute w-full top-1/2 transform -translate-y-full text-center text-white">
-          <h1 className="font-amsterdam text-4xl font-normal leading-[119.1px] text-center">
+          <h1 className="font-amsterdam text-4xl font-normal leading-[119.1px]">
             Welcome!
           </h1>
           <p className="font-cabin text-lg font-medium leading-[24.3px]">
@@ -94,23 +127,19 @@ const PasswordResetRequest = () => {
           </p>
         </div>
 
-        {/* Welcome Image */}
         <img
-  src={welcomeImage}
-  alt="Welcome"
-  className="absolute w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 top-2/3 transform -translate-y-1/2"
-/>
+          src={welcomeImage}
+          alt="Welcome"
+          className="absolute w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 top-2/3 transform -translate-y-1/2"
+        />
 
-        {/* Side and Bottom Images */}
         <div className="absolute w-full flex justify-between items-start h-full">
-          {/* Volunteering Image - Left */}
           <img
             src={volunteeringImage}
             alt="Volunteering"
             className="absolute left-0 w-30 h-auto top-1/3"
           />
 
-          {/* Vector Image - Right */}
           <img
             src={vectorImage}
             alt="Vector"
@@ -118,14 +147,12 @@ const PasswordResetRequest = () => {
           />
         </div>
 
-        {/* Group 1 Image - Bottom Left */}
         <img
           src={group1Image}
           alt="Group 1"
           className="absolute right-0 w-15 h-auto top-1/3"
         />
 
-        {/* Group 2 Image - Bottom Right */}
         <img
           src={group2Image}
           alt="Group 2"

@@ -1,5 +1,6 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import logo from "../../assets/login-logo.png";
 import welcomeImage from "../../assets/welcome-logo.gif";
 import volunteeringImage from "../../assets/Group.png";
@@ -9,19 +10,83 @@ import group1Image from "../../assets/Group1.png";
 import group2Image from "../../assets/Group2.png";
 import google from "../../assets/google.png";
 import linkedin from "../../assets/linkedin.png";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const SignIn = () => {
   const navigate = useNavigate(); // Initialize useNavigate
+  // State to manage email and password
+  const [email, setEmail] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [errors, setErrors] = useState({ email: "", password: "" });
 
   const handleLogoClick = () => {
     // Navigate to the home page or another desired route
-    navigate("/home"); // Replace '/home' with your desired route
+    navigate("/"); // Replace '/home' with your desired route
+  };
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+  const validateInputs = () => {
+    let valid = true;
+    const newErrors = { email: "", password: "" };
+
+    // Email validation
+    if (!email) {
+      newErrors.email = "Email is required.";
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Invalid email format.";
+      valid = false;
+    }
+
+    // Password validation
+    if (!password) {
+      newErrors.password = "Password is required.";
+      valid = false;
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters.";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
   };
 
-  const handleSignInClick = () => {
-    // Placeholder for sign-in logic
-    console.log("Sign In Clicked");
-    // You can add actual sign-in logic here
+  const handleSignInClick = async () => {
+    if (!validateInputs()) return;
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      const { token } = response.data;
+
+      // Store token based on "Remember Me" state
+      if (rememberMe) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("email", email);
+      } else {
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("email", email);
+      }
+
+      navigate("/"); // Navigate to the home page on success
+    } catch (error) {
+      console.error("Login failed:", error);
+
+      const errorMessage =
+        error.response && error.response.data && error.response.data.message
+          ? error.response.data.message
+          : "Login failed. Please try again.";
+
+      alert(errorMessage); // Display the error message from the backend
+    }
   };
 
   return (
@@ -73,29 +138,61 @@ const SignIn = () => {
             <input
               type="email"
               placeholder="Email"
-              className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={`w-full h-12 border ${
+                errors.email ? "border-red-500" : "border-[#7A89C2]"
+              } rounded-full p-4`}
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
           </div>
 
           {/* Password Input */}
-          <div className="w-full mb-4">
+
+          <div className="w-full mb-4 relative">
             <input
-              type="password"
+              type={passwordVisible ? "text" : "password"}
               placeholder="Password"
-              className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={`w-full h-12 border ${
+                errors.password ? "border-red-500" : "border-[#7A89C2]"
+              } rounded-full p-4 pr-12`} // Added padding for the button
             />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-4 top-3 text-gray-500"
+            >
+              {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+            </button>
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
           </div>
 
-          {/* Checkbox Section */}
+          {/* Remember Me and Forgot Password */}
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center">
-              <input type="checkbox" className="w-4 h-4 mr-2" />
+              <input
+                type="checkbox"
+                className="w-4 h-4 mr-2"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+              />
               <span className="text-sm font-normal text-[#00000099]">
                 Remember me
               </span>
             </div>
             <span className="text-sm font-normal text-black">
-              Forgot your password?
+              <Link
+                to="/password-reset-request"
+                className="cursor-pointer underline transition duration-300 ease-in-out hover:text-[#5a6ab8]"
+              >
+                Forgot your password?
+              </Link>
             </span>
           </div>
 
@@ -147,11 +244,10 @@ const SignIn = () => {
 
         {/* Welcome Image */}
         <img
-  src={welcomeImage}
-  alt="Welcome"
-  className="absolute w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 top-2/3 transform -translate-y-1/2"
-/>
-
+          src={welcomeImage}
+          alt="Welcome"
+          className="absolute w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 top-2/3 transform -translate-y-1/2"
+        />
 
         {/* Side and Bottom Images */}
         <div className="absolute w-full flex justify-between items-start h-full">

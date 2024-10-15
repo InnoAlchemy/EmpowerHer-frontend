@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/login-logo.png";
 import welcomeImage from "../../assets/welcome-logo.gif";
 import volunteeringImage from "../../assets/Group.png";
@@ -14,13 +14,11 @@ const Approval = () => {
 
   const handleLogoClick = () => {
     // Navigate to the home page or another desired route
-    navigate("/home"); // Replace '/home' with your desired route
+    navigate("/");
   };
 
   const handleBackClick = () => {
-    // Placeholder for sign-in logic
-    console.log("Back Clicked");
-    // You can add actual sign-in logic here
+    navigate("/verification");
   };
 
   return (
@@ -92,10 +90,10 @@ const Approval = () => {
 
         {/* Welcome Image */}
         <img
-  src={welcomeImage}
-  alt="Welcome"
-  className="absolute w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 top-2/3 transform -translate-y-1/2"
-/>
+          src={welcomeImage}
+          alt="Welcome"
+          className="absolute w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 top-2/3 transform -translate-y-1/2"
+        />
 
         {/* Side and Bottom Images */}
         <div className="absolute w-full flex justify-between items-start h-full">

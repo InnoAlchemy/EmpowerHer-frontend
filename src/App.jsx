@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom'; // Ensure Navigate is imported
 import Home from './pages/Home';
 import ProgramsInitiatives from './pages/Programs&Initiatives';
 import GetInvolved from './pages/GetInvolved';
@@ -13,10 +13,13 @@ import PasswordResetPassword from './pages/Auth-Pages/reset-password-password';
 import Approval from './pages/Auth-Pages/approval';
 import CheckEmail from './pages/Auth-Pages/check-email';
 import RegistrationPage from './pages/Auth-Pages/registration-splash';
+import NotFound from './pages/NotFound'; // Import your NotFound component
+
 const App = () => {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
+      <Route path='/home' element={<Home />} />
       <Route path='/programs-initiatives' element={<ProgramsInitiatives />} />
       <Route path='/get-involved' element={<GetInvolved />} />
       <Route path='/discover-her' element={<DiscoverHer />} />
@@ -28,7 +31,9 @@ const App = () => {
       <Route path='/password-reset' element={<PasswordResetPassword />} />
       <Route path='/approval' element={<Approval />} />
       <Route path='/check-email' element={<CheckEmail />} />
-      <Route path='/registration-splash' element={<RegistrationPage />} /> 
+      <Route path='/registration-splash' element={<RegistrationPage />} />
+      <Route path='/not-found' element={<NotFound />} /> 
+      <Route path='*' element={<Navigate to='/not-found' replace />} /> 
     </Routes>
   );
 };

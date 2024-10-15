@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { validateSignUp } from "../../Helper-Functions/validations";
 import logo from "../../assets/login-logo.png";
 import welcomeImage from "../../assets/welcome-logo.gif";
 import volunteeringImage from "../../assets/Group.png";
@@ -9,14 +11,75 @@ import group1Image from "../../assets/Group1.png";
 import group2Image from "../../assets/Group2.png";
 import google from "../../assets/google.png";
 import linkedin from "../../assets/linkedin.png";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  // State to manage form input and errors
+  const [formValues, setFormValues] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+  });
+  const [errors, setErrors] = useState({});
+
   const handleLogoClick = () => {
-    console.log("Navigating to Registration"); // Placeholder for navigation logic
+    navigate("/");
   };
 
-  const handleSignUpClick = () => {
-    console.log("Sign Up Clicked"); // Placeholder for sign-in logic
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPasswordVisible(!confirmPasswordVisible);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
+
+    if (errors[name]) {
+      setErrors((prevErrors) => {
+        const updatedErrors = { ...prevErrors };
+        delete updatedErrors[name];
+        return updatedErrors;
+      });
+    }
+  };
+
+  const handleSignUpClick = async () => {
+    const validationErrors = validateSignUp(formValues);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/register",
+        formValues
+      );
+
+      if (response.status === 201) {
+        sessionStorage.setItem("email", formValues.email);
+        alert("Registration successful!");
+        navigate("/verification");
+      }
+    } catch (error) {
+      console.error("Signup failed:", error);
+
+      // Extracting the error message from the API response
+      const errorMessage =
+        error.response && error.response.data && error.response.data.message
+          ? error.response.data.message
+          : "Signup failed. Please try again.";
+
+      alert(errorMessage); // Display the error message in an alert
+    }
   };
 
   return (
@@ -63,21 +126,37 @@ const SignUp = () => {
             </p>
           </div>
 
-          {/* First Name and Second Name Inputs */}
+          {/* First Name and Last Name Inputs */}
           <div className="flex mb-4">
             <div className="w-1/2 pr-2">
               <input
                 type="text"
+                name="first_name"
                 placeholder="First Name"
-                className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
+                value={formValues.first_name}
+                onChange={handleInputChange}
+                className={`w-full h-12 border ${
+                  errors.first_name ? "border-red-500" : "border-[#7A89C2]"
+                } rounded-full p-4`}
               />
+              {errors.first_name && (
+                <p className="text-red-500 text-sm mt-1">{errors.first_name}</p>
+              )}
             </div>
             <div className="w-1/2 pl-2">
               <input
                 type="text"
+                name="last_name"
                 placeholder="Last Name"
-                className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
+                value={formValues.last_name}
+                onChange={handleInputChange}
+                className={`w-full h-12 border ${
+                  errors.last_name ? "border-red-500" : "border-[#7A89C2]"
+                } rounded-full p-4`}
               />
+              {errors.last_name && (
+                <p className="text-red-500 text-sm mt-1">{errors.last_name}</p>
+              )}
             </div>
           </div>
 
@@ -85,27 +164,67 @@ const SignUp = () => {
           <div className="w-full mb-4">
             <input
               type="email"
+              name="email"
               placeholder="Email"
-              className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
+              value={formValues.email}
+              onChange={handleInputChange}
+              className={`w-full h-12 border ${
+                errors.email ? "border-red-500" : "border-[#7A89C2]"
+              } rounded-full p-4`}
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
           </div>
 
           {/* Password Input */}
-          <div className="w-full mb-4">
+          <div className="w-full mb-4 relative">
             <input
-              type="password"
+              type={passwordVisible ? "text" : "password"}
+              name="password"
               placeholder="Password"
-              className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
+              value={formValues.password}
+              onChange={handleInputChange}
+              className={`w-full h-12 border ${
+                errors.password ? "border-red-500" : "border-[#7A89C2]"
+              } rounded-full p-4`}
             />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-4 top-3 text-gray-500"
+            >
+              {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+            </button>
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
           </div>
 
-          {/* Re-Enter Password Input */}
-          <div className="w-full mb-4">
+          {/* Confirm Password Input */}
+          <div className="w-full mb-4 relative">
             <input
-              type="password"
+              type={confirmPasswordVisible ? "text" : "password"}
+              name="confirm_password"
               placeholder="Re-Enter Password"
-              className="w-full h-12 border border-[#7A89C2] rounded-full p-4"
+              value={formValues.confirm_password}
+              onChange={handleInputChange}
+              className={`w-full h-12 border ${
+                errors.confirm_password ? "border-red-500" : "border-[#7A89C2]"
+              } rounded-full p-4`}
             />
+            <button
+              type="button"
+              onClick={toggleConfirmPasswordVisibility}
+              className="absolute right-4 top-3 text-gray-500"
+            >
+              {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+            </button>
+            {errors.confirm_password && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.confirm_password}
+              </p>
+            )}
           </div>
 
           {/* Sign Up Button */}
@@ -156,10 +275,10 @@ const SignUp = () => {
         </div>
         {/* Welcome Image */}
         <img
-  src={welcomeImage}
-  alt="Welcome"
-  className="absolute w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 top-2/3 transform -translate-y-1/2"
-/>
+          src={welcomeImage}
+          alt="Welcome"
+          className="absolute w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 top-2/3 transform -translate-y-1/2"
+        />
         {/* Side and Bottom Images */}
         <div className="absolute w-full flex justify-between items-start h-full">
           {/* Volunteering Image - Left */}

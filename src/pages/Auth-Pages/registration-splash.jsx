@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/empowerherEnergy.png";
 import womanImage from "../../assets/woman.png";
 import building from "../../assets/building1.png";
@@ -15,6 +16,7 @@ import leave2 from "../../assets/Group2.png";
 import vector from "../../assets/Vector.png";
 
 const RegistrationPage = () => {
+    const navigate = useNavigate();
   return (
     <div className="w-screen h-screen bg-white flex flex-col md:flex-row">
       {/* Left Section */}
@@ -91,6 +93,7 @@ const RegistrationPage = () => {
             please login with your personal info
           </p>
           <button
+            onClick={() => navigate("/login")} // Navigate to /login on click
             className="w-36 md:w-44 h-12 md:h-16 bg-transparent border border-white rounded-full 
                 text-white font-medium hover:bg-white hover:text-[#7A89C2] transition duration-300"
           >
@@ -122,7 +125,7 @@ const RegistrationPage = () => {
           <img
             src={womanImage}
             alt="Woman"
-            className="absolute w-[100px] md:w-[180px] h-[230px] md:h-[460px] top-[210px] md:top-[30px] left-[140px] md:left-[280px] z-10"
+            className="absolute w-[100px] md:w-[180px] h-[230px] md:h-[460px] top-[210px] md:top-[210px] left-[140px] md:left-[280px] z-10"
           />
         </div>
 
