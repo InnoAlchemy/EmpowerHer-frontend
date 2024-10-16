@@ -20,7 +20,7 @@ const Home = () => {
         const response = await axios.get(
           "http://localhost:8080/api/combined_api_data_for_pages/home"
         );
-        console.log("API Response:", response.data);
+     
         setHomeData(response.data);
       } catch (error) {
         console.error("Error fetching homepage data:", error);
