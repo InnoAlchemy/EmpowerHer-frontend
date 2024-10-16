@@ -6,7 +6,9 @@ import image from '../assets/icon-list.png';
 
 const GetInvolved = () => {
   const [getInvolvedData, setInvolvedDataData] = useState(null);
-
+  const [showMembershipOptions, setShowMembershipOptions] = useState(false); // state to toggle membership options
+  const [selectedMembership, setSelectedMembership] = useState('Individual'); // state to track selected membership
+  const backgroundColors = ["#7A89C2", "#4C6ADB", "#3751B4"]
   useEffect(() => {
     const fetchGetInvolvedPageData = async () => {
       try {
@@ -30,7 +32,39 @@ const GetInvolved = () => {
   const getInvolvedHeaderData = getInvolvedData.staticPages.find(
     (page) => page.key === "Get Involved"
   );
-
+ // Dummy data for card content
+ const cardData = [
+  {
+    title: "Membership",
+    description: [
+      "Access to diversity and inclusion training for employees.",
+      "Discounts on event sponsorships.",
+      "Company listing in the directory.",
+      "Access for up to 5 employees."
+    ],
+    price: "$500",
+  },
+  {
+    title: "Membership",
+    description: [
+      "Access to diversity and inclusion training for employees.",
+      "Discounts on event sponsorships.",
+      "Company listing in the directory.",
+      "Access for up to 5 employees."
+    ],
+    price: "$500",
+  },
+  {
+    title: "Membership",
+    description: [
+      "Access to diversity and inclusion training for employees.",
+      "Discounts on event sponsorships.",
+      "Company listing in the directory.",
+      "Access for up to 5 employees."
+    ],
+    price: "$500",
+  }
+];
   return (
     <div className="min-h-screen flex flex-col bg-transparent">
       <Navbar />
@@ -140,6 +174,77 @@ const GetInvolved = () => {
     </button>
   </div>
       </div>
+
+      {/* New Section under "Get Started" Button */}
+      <section className="w-full h-auto mt-12 pl-6 sm:pl-12">
+        <div className="w-full max-w-[383px] h-[103px] gap-8">
+          <div className="w-full max-w-[486px] flex items-center cursor-pointer" onClick={() => setShowMembershipOptions(!showMembershipOptions)}>
+            <p className="text-[#7A89C2] font-cabin text-[35px] font-bold leading-[42.53px] whitespace-nowrap">
+              Choose Your Membership
+            </p>
+            <div
+              className={`w-0 h-0 ml-6 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent ${
+                showMembershipOptions
+                  ? "border-t-[25px] border-t-[#7A89C2]"
+                  : "border-b-[25px] border-b-[#7A89C2]"
+              } transform rotate-360`}
+            ></div>
+          </div>
+
+          {/* Conditionally render membership options */}
+          {showMembershipOptions && (
+            <div className="mt-4 flex gap-4">
+              <p
+                className={`text-lg font-cabin cursor-pointer ${
+                  selectedMembership === 'Individual' ? 'text-[#7A89C2]' : 'text-black'
+                }`}
+                onClick={() => setSelectedMembership('Individual')}
+              >
+                Individual
+              </p>
+              <p>|</p>
+              <p
+                className={`text-lg font-cabin cursor-pointer ${
+                  selectedMembership === 'Corporate' ? 'text-[#7A89C2]' : 'text-black'
+                }`}
+                onClick={() => setSelectedMembership('Corporate')}
+              >
+                Corporate
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+{/* Cards Section */}
+{showMembershipOptions && ( // Conditionally render the cards */}
+  <section className="flex flex-wrap justify-center gap-8 mt-12 px-4 mb-20"> 
+    {cardData.map((card, index) => (
+      <div
+        key={index}
+        className="relative w-[90%] sm:w-[382px] h-[327px] p-6 mb-10" 
+        style={{
+          borderRadius: "40px",
+          backgroundColor: backgroundColors[index], 
+        }}
+      >
+        <h1 className="font-cabin text-[30px] font-bold leading-[36.45px] text-white mb-4">
+          {card.title}
+        </h1>
+        <ul className="font-cabin text-[20px] font-medium leading-[24.3px] text-white mb-4 list-disc pl-4">
+          {card.description.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+        <button
+          className="absolute left-1/2 transform -translate-x-1/2 bottom-6 w-auto h-[34px] px-[30px] py-[8px] rounded-[15px] border border-solid border-white bg-white text-[#7A89C2] font-cabin font-semibold text-[15px] whitespace-nowrap"
+        >
+          Subscribe Now for {card.price}
+        </button>
+      </div>
+    ))}
+  </section>
+)}
 
       <Footer />
     </div>
