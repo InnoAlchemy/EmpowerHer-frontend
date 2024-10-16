@@ -17,7 +17,9 @@ import NotFound from './pages/NotFound'; // Import your NotFound component
 
 const App = () => {
   return (
+    
     <Routes>
+      
       <Route path='/' element={<Home />} />
       <Route path='/home' element={<Home />} />
       <Route path='/programs-initiatives' element={<ProgramsInitiatives />} />

@@ -18,7 +18,7 @@ const Approval = () => {
   };
 
   const handleBackClick = () => {
-    navigate("/verification");
+    navigate("/home");
   };
 
   return (

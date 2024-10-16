@@ -9,6 +9,8 @@ import vectorImage from "../../assets/vector.png";
 import group1Image from "../../assets/Group1.png";
 import group2Image from "../../assets/Group2.png";
 import EmailAnimation from "../../assets/verification.gif";
+import { toast } from "react-hot-toast"; 
+import ToastProvider from "../../components/toasterMessages";
 
 const Verification = () => {
   const navigate = useNavigate();
@@ -51,7 +53,6 @@ const Verification = () => {
         }
       );
 
-      console.log("Verification successful:", response.data);
       navigate("/approval"); // Navigate to approval on success
     } catch (error) {
       console.error("Verification failed:", error);
@@ -64,7 +65,7 @@ const Verification = () => {
 
     if (!email) {
       console.error("No email found in session storage.");
-      alert("No email found. Please register again.");
+      toast.error("No email found. Please register again.");
       return;
     }
 
@@ -74,16 +75,16 @@ const Verification = () => {
         { email }
       );
 
-      console.log("OTP resent successfully:", response.data);
-      alert("A new OTP has been sent to your email.");
+      toast.success("A new OTP has been sent to your email.");
     } catch (error) {
       console.error("Failed to resend OTP:", error);
-      alert("Failed to resend OTP. Please try again.");
+      toast.error("Failed to resend OTP. Please try again.");
     }
   };
 
   return (
     <div className="relative w-full min-h-screen bg-white flex flex-col md:flex-row">
+        <ToastProvider />
       <div className="w-full md:w-3/5 flex items-center justify-center bg-white p-6 md:p-12">
         <div className="w-full max-w-md">
           <img

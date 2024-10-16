@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import ToastProvider from "../../components/toasterMessages";
 import logo from "../../assets/login-logo.png";
 import welcomeImage from "../../assets/welcome-logo.gif";
 import volunteeringImage from "../../assets/Group.png";
@@ -11,6 +13,7 @@ import group2Image from "../../assets/Group2.png";
 import google from "../../assets/google.png";
 import linkedin from "../../assets/linkedin.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 const SignIn = () => {
   const navigate = useNavigate(); // Initialize useNavigate
   // State to manage email and password
@@ -22,11 +25,13 @@ const SignIn = () => {
 
   const handleLogoClick = () => {
     // Navigate to the home page or another desired route
-    navigate("/"); // Replace '/home' with your desired route
+    navigate("/"); // Replace '/' with your desired route
   };
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
   const validateInputs = () => {
     let valid = true;
     const newErrors = { email: "", password: "" };
@@ -76,7 +81,14 @@ const SignIn = () => {
         sessionStorage.setItem("email", email);
       }
 
-      navigate("/"); // Navigate to the home page on success
+      // Optional: Show success toast
+      toast.success("Login successful!", {
+        // You can customize the toast further if needed
+      });
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (error) {
       console.error("Login failed:", error);
 
@@ -85,12 +97,18 @@ const SignIn = () => {
           ? error.response.data.message
           : "Login failed. Please try again.";
 
-      alert(errorMessage); // Display the error message from the backend
+      toast.error(errorMessage, {
+        // You can customize the toast further if needed
+      });
     }
   };
 
   return (
     <div className="relative w-full min-h-screen bg-white flex flex-col md:flex-row">
+      {/* Toaster Component for Toast Notifications */}
+      <ToastProvider />
+
+
       {/* Left Side (Form Section) */}
       <div className="w-full md:w-3/5 flex flex-col items-center justify-center bg-white relative px-4 md:px-0">
         {/* Logo */}
@@ -150,7 +168,6 @@ const SignIn = () => {
           </div>
 
           {/* Password Input */}
-
           <div className="w-full mb-4 relative">
             <input
               type={passwordVisible ? "text" : "password"}

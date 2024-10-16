@@ -8,6 +8,8 @@ import svgImage from "../../assets/SVGRepo_iconCarrier.png";
 import vectorImage from "../../assets/vector.png";
 import group1Image from "../../assets/Group1.png";
 import group2Image from "../../assets/Group2.png";
+import { toast } from "react-hot-toast";
+import ToastProvider from "../../components/toasterMessages";
 
 const PasswordResetRequest = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -50,13 +52,14 @@ const PasswordResetRequest = () => {
           ? error.response.data.message
           : "Failed to send password reset request. Please try again.";
 
-      setError(errorMessage); // Display the error message
-      setSuccessMessage(""); // Clear success message if there was an error
+      toast.error(errorMessage); // Display the error message
+      toast.success(""); // Clear success message if there was an error
     }
   };
 
   return (
     <div className="relative w-full min-h-screen bg-white flex flex-col md:flex-row">
+      <ToastProvider />
       {/* Left Side (Form Section) */}
       <div className="w-full md:w-3/5 flex flex-col items-center justify-center bg-white relative px-4 md:px-0">
         {/* Logo */}

@@ -12,6 +12,9 @@ import group2Image from "../../assets/Group2.png";
 import google from "../../assets/google.png";
 import linkedin from "../../assets/linkedin.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-hot-toast";
+import ToastProvider from "../../components/toasterMessages";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -66,8 +69,11 @@ const SignUp = () => {
 
       if (response.status === 201) {
         sessionStorage.setItem("email", formValues.email);
-        alert("Registration successful!");
-        navigate("/verification");
+        toast.success("Registration successful!");
+        
+        setTimeout(() => {
+            navigate("/verification");
+          }, 1000)
       }
     } catch (error) {
       console.error("Signup failed:", error);
@@ -78,12 +84,15 @@ const SignUp = () => {
           ? error.response.data.message
           : "Signup failed. Please try again.";
 
-      alert(errorMessage); // Display the error message in an alert
+          toast.error(errorMessage, {
+            // You can customize the toast further if needed
+          });
     }
   };
 
   return (
     <div className="relative w-full min-h-screen bg-white flex flex-col md:flex-row">
+         <ToastProvider />
       {/* Left Side (Form Section) */}
       <div className="w-full md:w-3/5 flex items-center justify-center bg-white">
         <div className="max-w-md w-full">

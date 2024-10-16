@@ -8,6 +8,8 @@ import vectorImage from "../../assets/vector.png";
 import group1Image from "../../assets/Group1.png";
 import group2Image from "../../assets/Group2.png";
 import checkEmail from "../../assets/check-email.gif";
+import { toast } from "react-hot-toast"; 
+import ToastProvider from "../../components/toasterMessages";
 
 const CheckEmail = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -24,7 +26,7 @@ const CheckEmail = () => {
         "_blank"
       );
     } else {
-      alert("No email found in session storage.");
+      toast.error("No email found in session storage.");
     }
   };
 
@@ -34,6 +36,7 @@ const CheckEmail = () => {
 
   return (
     <div className="relative w-full min-h-screen bg-white flex flex-col md:flex-row">
+        <ToastProvider />
       <div className="w-full md:w-3/5 flex flex-col items-center justify-center bg-white relative px-4 md:px-0">
         <img
           src={logo}
