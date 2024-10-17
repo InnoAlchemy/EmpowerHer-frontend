@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from '../components/home/navbar'; 
 import Footer from '../components/home/footer';
-import image from '../assets/icon-list.png';
 
 const GetInvolved = () => {
   const [getInvolvedData, setInvolvedDataData] = useState(null);
-  const [showMembershipOptions, setShowMembershipOptions] = useState(false); // state to toggle membership options
-  const [selectedMembership, setSelectedMembership] = useState('Individual'); // state to track selected membership
-  const backgroundColors = ["#7A89C2", "#4C6ADB", "#3751B4"]
+  const [showMembershipOptions, setShowMembershipOptions] = useState(false); // State to toggle membership options
+  const [selectedMembership, setSelectedMembership] = useState('Individual'); // State to track selected membership
+  const backgroundColors = ["#7A89C2", "#4C6ADB", "#3751B4"]; // Array of background colors for variety
+
   useEffect(() => {
     const fetchGetInvolvedPageData = async () => {
       try {
@@ -18,7 +18,7 @@ const GetInvolved = () => {
         console.log("API Response:", response.data);
         setInvolvedDataData(response.data);
       } catch (error) {
-        console.error("Error fetching homepage data:", error);
+        console.error("Error fetching get involved page data:", error);
       }
     };
 
@@ -30,41 +30,14 @@ const GetInvolved = () => {
   }
 
   const getInvolvedHeaderData = getInvolvedData.staticPages.find(
-    (page) => page.key === "Get Involved"
+    (page) => page.key.toLowerCase() === "get involved"
   );
- // Dummy data for card content
- const cardData = [
-  {
-    title: "Membership",
-    description: [
-      "Access to diversity and inclusion training for employees.",
-      "Discounts on event sponsorships.",
-      "Company listing in the directory.",
-      "Access for up to 5 employees."
-    ],
-    price: "$500",
-  },
-  {
-    title: "Membership",
-    description: [
-      "Access to diversity and inclusion training for employees.",
-      "Discounts on event sponsorships.",
-      "Company listing in the directory.",
-      "Access for up to 5 employees."
-    ],
-    price: "$500",
-  },
-  {
-    title: "Membership",
-    description: [
-      "Access to diversity and inclusion training for employees.",
-      "Discounts on event sponsorships.",
-      "Company listing in the directory.",
-      "Access for up to 5 employees."
-    ],
-    price: "$500",
-  }
-];
+
+  // Determine which memberships to display based on selection
+  const displayedMemberships = selectedMembership === 'Individual' 
+    ? getInvolvedData.memberships.individual 
+    : getInvolvedData.memberships.corporate;
+
   return (
     <div className="min-h-screen flex flex-col bg-transparent">
       <Navbar />
@@ -124,55 +97,58 @@ const GetInvolved = () => {
         Programs and Initiatives to Support Women's Empowerment
       </h2>
         
-      {/* Frame 293 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 px-4 sm:px-8 lg:px-16 min-h-auto pb-16">
-        {/* Repeated Diamond Box - First row */}
-        {Array.from({ length: 8 }).map((_, index) => (
-          <div key={index} className="w-full max-w-[268px] h-[432px] mx-auto relative">
-            {/* Icon Image */}
-            <img
-              src={image}
-              alt="icon"
-              className="w-[93px] h-[101px] mx-auto mb-4"  // Centers the icon and adds margin
-            />
+      {/* Programs Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 px-4 sm:px-8 lg:px-16 pb-16 items-stretch">
+        {getInvolvedData.programsInitiatives
+          .filter(program => program.is_active)
+          .map((program, index) => (
+            <div 
+              key={index} 
+              className="w-full max-w-[268px] mx-auto relative flex flex-col h-full"
+            >
+              {/* Icon Image */}
+              <img
+                src={program.icon}
+                alt={program.title}
+                className="w-[93px] h-[101px] mx-auto mb-4"  // Centers the icon and adds margin
+              />
 
-            <div className="w-full h-[331px] relative">
               {/* Diamond Shape */}
-              <div className="w-[55px] h-[55px] absolute top-[-30px] left-[50%] transform -translate-x-1/2 rotate-45 bg-[#FFFFFF] flex items-center justify-center">
-                <div className="w-[15px] h-[15px] rotate-90 bg-[#7A89C2]"></div>
-              </div>
+              <div className="w-[55px] h-[55px] absolute top-[130px] left-[50%] transform -translate-x-1/2 rotate-45 bg-[#FFFFFF] flex items-center justify-center">
+                  <div className="w-[15px] h-[15px] rotate-90 bg-[#7A89C2]"></div>
+                </div>
 
               {/* Card Body */}
-              <div className="w-full h-[292px] rounded-lg bg-[#7A89C2] shadow-lg p-6 mt-12">
-                <div className="text-white">
+              <div className="w-full rounded-lg bg-[#7A89C2] shadow-lg p-6 mt-12 flex flex-col flex-grow">
+                <div className="text-white flex-grow">
                   {/* Title */}
                   <h1 className="font-cabin text-[20px] font-bold leading-[24.3px] text-center mb-4 mt-8">
-                    Membership
+                    {program.title}
                   </h1>
 
                   {/* Description */}
                   <p className="text-sm font-cabin text-center leading-relaxed">
-                    Joining the EmpowerHer.Energy community as a member provides access to exclusive resources, events, and networking opportunities tailored to empower women in the energy, finance, leadership, real estate, and construction sectors.
+                    {program.description}
                   </p>
                 </div>
               </div>
             </div>
-          </div>
         ))}
-       {/* Centered Button */}
-  <div className="col-span-full flex justify-center mt-8">
-    <button
-      className="bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] 
-                 text-white text-lg sm:text-xl font-semibold 
-                 py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-lg border-t border-solid border-[#7A89C2] 
-                 hover:opacity-90 transition duration-300"
-      onClick={() =>
-        (window.location.href = "/programs-initiatives")
-      }
-    >
-      Get Started
-    </button>
-  </div>
+        
+        {/* Centered Button */}
+        <div className="col-span-full flex justify-center mt-8">
+          <button
+            className="bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] 
+                       text-white text-lg sm:text-xl font-semibold 
+                       py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-lg border-t border-solid border-[#7A89C2] 
+                       hover:opacity-90 transition duration-300"
+            onClick={() =>
+              (window.location.href = "/programs-initiatives")
+            }
+          >
+            Get Started
+          </button>
+        </div>
       </div>
 
       {/* New Section under "Get Started" Button */}
@@ -216,36 +192,49 @@ const GetInvolved = () => {
         </div>
       </section>
 
-{/* Cards Section */}
-{showMembershipOptions && ( // Conditionally render the cards */}
-  <section className="flex flex-wrap justify-center gap-8 mt-12 px-4 mb-20"> 
-    {cardData.map((card, index) => (
-      <div
-        key={index}
-        className="relative w-[90%] sm:w-[382px] h-[327px] p-6 mb-10" 
-        style={{
-          borderRadius: "40px",
-          backgroundColor: backgroundColors[index], 
-        }}
-      >
-        <h1 className="font-cabin text-[30px] font-bold leading-[36.45px] text-white mb-4">
-          {card.title}
-        </h1>
-        <ul className="font-cabin text-[20px] font-medium leading-[24.3px] text-white mb-4 list-disc pl-4">
-          {card.description.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-        <button
-          className="absolute left-1/2 transform -translate-x-1/2 bottom-6 w-auto h-[34px] px-[30px] py-[8px] rounded-[15px] border border-solid border-white bg-white text-[#7A89C2] font-cabin font-semibold text-[15px] whitespace-nowrap"
-        >
-          Subscribe Now for {card.price}
-        </button>
-      </div>
-    ))}
-  </section>
-)}
+      {/* Cards Section */}
+      {showMembershipOptions && ( // Conditionally render the cards
+        <section className="flex flex-wrap justify-center gap-20 mt-12 px-4 mb-20"> 
+          {displayedMemberships.map((membership, index) => {
+            // Parse the description into an array of benefits
+            const descriptionArray = membership.description.startsWith('Benefits:')
+              ? membership.description.replace('Benefits:', '').split('.').map(item => item.trim()).filter(item => item)
+              : [membership.description];
 
+            return (
+              <div
+                key={index} // Changed from membership.id to index to match data structure
+                className="relative w-[90%] sm:w-[382px] p-6 mb-10 flex flex-col justify-between" 
+                style={{
+                  borderRadius: "40px",
+                  backgroundColor: backgroundColors[index % backgroundColors.length], 
+                }}
+              >
+                <div>
+                  <h1 className="font-cabin text-[30px] font-bold leading-[36.45px] text-white mb-4">
+                    {membership.title}
+                  </h1>
+                  <h2 className="font-cabin text-[20px] font-bold leading-[24.3px] text-white mb-4">
+                    Benefits:
+                  </h2>
+                  <ul className="font-cabin text-[20px] font-medium leading-[24.3px] text-white mb-4 list-disc pl-4">
+                    {descriptionArray.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                {/* Subscribe Button */}
+                <button
+                  className="w-full mt-4 py-2 rounded-[15px] border border-solid border-white bg-white text-[#7A89C2] font-cabin font-semibold text-[15px] whitespace-nowrap"
+                >
+                  Subscribe Now for ${membership.price}
+                </button>
+              </div>
+            );
+          })}
+        </section>
+      )}
+      
       <Footer />
     </div>
   );
