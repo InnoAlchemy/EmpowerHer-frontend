@@ -20,7 +20,7 @@ const Home = () => {
         const response = await axios.get(
           "http://localhost:8080/api/combined_api_data_for_pages/home"
         );
-     
+
         setHomeData(response.data);
       } catch (error) {
         console.error("Error fetching homepage data:", error);
@@ -91,12 +91,11 @@ const Home = () => {
           {/* Left Side - Image and Button */}
           <div className="flex-none w-full md:w-1/2 h-auto gap-3 mb-6 md:mb-0">
             <div className="w-full h-full bg-white rounded-lg p-3 flex flex-col items-center">
-            <img
-  src={homeAboutUsData.image}
-  alt="About Us"
-  className="w-[320px] h-[500px] mt-4 object-cover"
-/>
-
+              <img
+                src={homeAboutUsData.image}
+                alt="About Us"
+                className="w-[320px] h-[500px] mt-4 object-cover"
+              />
 
               <button
                 className="mt-6 w-[281px] h-[55px] flex items-center justify-center border border-[#7A89C2] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] rounded-lg"
@@ -165,48 +164,47 @@ const Home = () => {
 
         {/* Trending Articles Section */}
         <section className="py-5 px-5 sm:px-10 md:px-20 lg:px-40 w-full h-auto">
-  <h2 className="font-brice text-[30px] sm:text-[35px] md:text-[40px] font-normal leading-[1.4] text-center text-[#7A89C2] mb-8">
-    Trending Articles
-  </h2>
+          <h2 className="font-brice text-[30px] sm:text-[35px] md:text-[40px] font-normal leading-[1.4] text-center text-[#7A89C2] mb-8">
+            Trending Articles
+          </h2>
 
-  <div className="flex flex-col items-center sm:flex-row sm:justify-center gap-8">
-    {homeData.trendingArticles.map((article, index) => (
-      <div
-        key={index}
-        className="max-w-xs bg-white shadow-md w-full sm:w-[332px] h-[450px] overflow-hidden"
-      >
-        <img
-          src={article.header_file}
-          alt="Article"
-          className="w-full h-[179px] sm:h-[179px] md:h-[200px] rounded-t-lg object-cover"
-        />
-        <div className="w-full h-full pt-2 pb-4 pl-5 pr-4 rounded-b-lg bg-[#EADFE280]  ">
-          {/* Title */}
-          <h3 className="w-full mb-2 text-left text-[#7A89C2] font-inter text-[15px] sm:text-[16px] md:text-[18px] font-semibold leading-tight">
-            {article.title}
-          </h3>
-          {/* Date */}
-          <p className="w-full text-left text-black font-inter text-[12px] sm:text-[13px] md:text-[14px] font-medium mb-2">
-            {formatDateForArticles(article.date)}
-          </p>
-          {/* Description */}
-          <p className="w-full text-left text-black font-inter text-[12px] sm:text-[13px] md:text-[14px] font-semibold leading-snug">
-            {article.description}
-          </p>
-        </div>
-      </div>
-    ))}
-  </div>
+          <div className="flex flex-col items-center sm:flex-row sm:justify-center gap-8">
+            {homeData.trendingArticles.map((article, index) => (
+              <div
+                key={index}
+                className="max-w-xs bg-white shadow-md w-full sm:w-[332px] h-[450px] overflow-hidden"
+              >
+                <img
+                  src={article.header_file}
+                  alt="Article"
+                  className="w-full h-[179px] sm:h-[179px] md:h-[200px] rounded-t-lg object-cover"
+                />
+                <div className="w-full h-full pt-2 pb-4 pl-5 pr-4 rounded-b-lg bg-[#EADFE280]  ">
+                  {/* Title */}
+                  <h3 className="w-full mb-2 text-left text-[#7A89C2] font-inter text-[15px] sm:text-[16px] md:text-[18px] font-semibold leading-tight">
+                    {article.title}
+                  </h3>
+                  {/* Date */}
+                  <p className="w-full text-left text-black font-inter text-[12px] sm:text-[13px] md:text-[14px] font-medium mb-2">
+                    {formatDateForArticles(article.date)}
+                  </p>
+                  {/* Description */}
+                  <p className="w-full text-left text-black font-inter text-[12px] sm:text-[13px] md:text-[14px] font-semibold leading-snug">
+                    {article.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
 
-  <div className="flex justify-center mt-8">
-    <button className="w-full sm:w-[133px] lg:w-[200px] h-[50px] rounded-[15px] border-t border-[#7A89C2] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] flex items-center justify-center">
-      <span className="text-white font-cabin text-[20px] font-semibold leading-[24.3px]">
-        View All
-      </span>
-    </button>
-  </div>
-</section>
-
+          <div className="flex justify-center mt-8">
+            <button className="w-full sm:w-[133px] lg:w-[200px] h-[50px] rounded-[15px] border-t border-[#7A89C2] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] flex items-center justify-center">
+              <span className="text-white font-cabin text-[20px] font-semibold leading-[24.3px]">
+                View All
+              </span>
+            </button>
+          </div>
+        </section>
 
         {/* Events Section */}
 

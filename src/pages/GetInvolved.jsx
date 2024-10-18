@@ -48,7 +48,7 @@ const GetInvolved = () => {
         style={{ backgroundImage: `url(${getInvolvedHeaderData.image})` }}
       >
         <div className="flex items-start justify-start h-full p-4 sm:p-8 md:p-16">
-          <div className="relative flex flex-col items-start justify-center w-full max-w-6xl">
+          <div className="relative flex flex-col items-start justify-center w-full max-w-6xl mx-auto"> {/* Added mx-auto for centering */}
             
             <div className="flex flex-col items-start gap-6 w-full">
               {/* Text Block */}
@@ -92,13 +92,14 @@ const GetInvolved = () => {
       
       {/* Programs Section */}
      
-      {/* Title */}
-      <h2 className="font-cabin text-2xl sm:text-3xl md:text-4xl font-medium leading-tight text-[#7A89C2] text-left mb-14 ml-6 sm:ml-12 mt-10">
+      
+        {/* Title */}
+      <h2 className=" font-cabin text-2xl sm:text-3xl md:text-4xl font-medium leading-tight text-[#7A89C2] text-left mb-16 ml-12 sm:ml-12 mt-10 ">
         Programs and Initiatives to Support Women's Empowerment
       </h2>
-        
       {/* Programs Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 px-4 sm:px-8 lg:px-16 pb-16 items-stretch">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 px-4 sm:px-8 lg:px-16 pb-16 items-stretch max-w-[1400px] mx-auto">
+         {/* Added max-w and mx-auto */}
         {getInvolvedData.programsInitiatives
           .filter(program => program.is_active)
           .map((program, index) => (
@@ -152,7 +153,7 @@ const GetInvolved = () => {
       </div>
 
       {/* New Section under "Get Started" Button */}
-      <section className="w-full h-auto mt-12 pl-6 sm:pl-12">
+      <section className="w-full h-auto mt-12 pl-6 sm:pl-12 max-w-[1400px] mx-auto">
         <div className="w-full max-w-[383px] h-[103px] gap-8">
           <div className="w-full max-w-[486px] flex items-center cursor-pointer" onClick={() => setShowMembershipOptions(!showMembershipOptions)}>
             <p className="text-[#7A89C2] font-cabin text-[35px] font-bold leading-[42.53px] whitespace-nowrap">
