@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai"; // Importing an icon for cancel
 import { MdAttachFile, MdKeyboardArrowDown } from "react-icons/md"; // Import arrow down icon
+import axios from "axios"; // Import Axios
 
 const PartnershipForm = ({ handleSubmit }) => {
   const [message, setMessage] = useState(""); // State for the message
   const [selectedFile, setSelectedFile] = useState(null); // State for the selected file
   const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown open/close
   const [selectedCategory, setSelectedCategory] = useState(""); // State for selected category
+  const [categories, setCategories] = useState([]); // State for partnership categories
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/partnership_types");
+        setCategories(response.data); // Assuming the API returns an array of objects
+      } catch (error) {
+        console.error("Error fetching partnership types:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -19,18 +34,12 @@ const PartnershipForm = ({ handleSubmit }) => {
     setSelectedFile(null); // Clear the selected file
   };
 
-  const categories = [
-    "Event Sponsorship",
-    "Content Collaboration",
-    "Corporate Membership"
-  ];
-
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategory(category.title); 
     setDropdownOpen(false);
   };
 
@@ -41,13 +50,13 @@ const PartnershipForm = ({ handleSubmit }) => {
       <div className="flex flex-col md:flex-row gap-6">
         <input
           type="text"
-          placeholder="Organization/Individual Name * "
+          placeholder="Organization/Individual Name *"
           required
           className="flex-1 p-4 h-[50px] md:h-[64px] rounded-[30px] border border-[#7A89C2] focus:outline-none focus:ring-2 focus:ring-[#7A89C2]"
         />
         <input
           type="text"
-          placeholder="Contact Person's Full Name  *"
+          placeholder="Contact Person's Full Name *"
           required
           className="flex-1 p-4 h-[50px] md:h-[64px] rounded-[30px] border border-[#7A89C2] focus:outline-none focus:ring-2 focus:ring-[#7A89C2]"
         />
@@ -55,50 +64,56 @@ const PartnershipForm = ({ handleSubmit }) => {
       <div className="flex flex-col md:flex-row gap-6">
         <input
           type="email"
-          placeholder="Contact Person's Email Address  *"
+          placeholder="Contact Person's Email Address *"
           required
           className="flex-1 p-4 h-[50px] md:h-[64px] rounded-[30px] border border-[#7A89C2] focus:outline-none focus:ring-2 focus:ring-[#7A89C2]"
         />
         <input
           type="tel"
-          placeholder="Contact Person's Phone Number  *"
+          placeholder="Contact Person's Phone Number *"
           required
           className="flex-1 p-4 h-[50px] md:h-[64px] rounded-[30px] border border-[#7A89C2] focus:outline-none focus:ring-2 focus:ring-[#7A89C2]"
         />
       </div>
 
       <div className="relative flex-1">
-        <div
-          className={`flex justify-between items-center p-4 h-[64px] rounded-[30px] border border-[#7A89C2] transition-all duration-300 ${dropdownOpen ? 'rounded-b-none' : ''}`}
-          onClick={toggleDropdown}
-        >
-          <span className="text-[#7A89C2] text-lg">{selectedCategory || "Partnership Type *"}</span>
-          <MdKeyboardArrowDown className="text-[#7A89C2]" size={24} />
-        </div>
-        {dropdownOpen && (
-          <div className="absolute z-10 mt-0 w-full bg-white border border-[#7A89C2] rounded-b-[30px] shadow-lg">
-            {categories.map((category, index) => (
-              <div key={index}>
-                <div
-                  className="p-2 hover:bg-gray-200 cursor-pointer"
-                  onClick={() => handleCategorySelect(category)}
-                >
-                  {category}
-                </div>
-                {index < categories.length - 1 && (
-                  <div className="border-b border-[#7A89C2] h-[15px]"></div>
-                )} 
-              </div>
-            ))}
-          </div>
-        )}
+      <div
+        className={`flex justify-between items-center p-4 h-[64px] rounded-[30px] border border-[#7A89C2] transition-all duration-300 ${
+          dropdownOpen ? 'rounded-b-none' : ''
+        }`}
+        onClick={toggleDropdown}
+      >
+        <span className="text-[#7A89C2] text-lg">
+          {selectedCategory || "Partnership Type *"}
+        </span>
+        <MdKeyboardArrowDown className="text-[#7A89C2]" size={24} />
       </div>
-
-      {/* Description of Proposal  and File Attachment Section */}
+      {dropdownOpen && (
+        <div className="absolute z-10 mt-0 w-full bg-white border border-[#7A89C2] rounded-b-[30px] shadow-lg">
+          {categories.map((category, index) => (
+            <div key={category.id}>
+              <div
+                className="p-2 hover:bg-gray-200 cursor-pointer"
+                onClick={() => handleSelect(category)}
+              >
+                {category.title}
+              </div>
+              {/* Conditionally render the separator or spacer */}
+              {index < categories.length - 1 ? (
+                <div className="border-b border-[#7A89C2] h-[15px]"></div>
+              ) : (
+                <div className="h-[15px]"></div> 
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+      {/* Description of Proposal and File Attachment Section */}
       <div className={`flex flex-col gap-4 ${dropdownOpen ? 'mt-[150px]' : 'mt-4'}`}> {/* Adjust margin based on dropdown state */}
         <div className="relative">
           <textarea
-            placeholder="Description of Proposal  *"
+            placeholder="Description of Proposal *"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             required
@@ -110,7 +125,7 @@ const PartnershipForm = ({ handleSubmit }) => {
               className="flex items-center cursor-pointer text-[#00000] text-lg"
             >
               <MdAttachFile className="mr-1 mb-2" />
-             
+              Attach File
             </label>
             {selectedFile && (
               <div className="bg-gray-200 rounded-[30px] p-2 flex items-center">
