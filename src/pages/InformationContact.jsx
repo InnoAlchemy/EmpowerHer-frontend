@@ -30,7 +30,7 @@ const InformationContacts = () => {
   }, []);
 
   if (!contactUsData) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
 
   const contactData = contactUsData.staticPages.find(
@@ -61,88 +61,96 @@ const InformationContacts = () => {
   return (
     <div className="min-h-screen flex flex-col bg-transparent">
       <Navbar />
-      {/* Hero Section */}
-      <section
-        className="flex-grow bg-cover bg-center h-[500px] w-full"
-        style={{ backgroundImage: `url(${contactData.image})` }}
-      >
-        <div className="flex items-center justify-center h-full">
-          <div className="relative flex flex-col items-center justify-center w-full max-w-[1198px] h-auto p-4">
-            <div className="flex flex-col items-center gap-8 w-full">
-              <h1 className="font-cabin text-[50px] font-medium text-[#7A89C2] text-center">
-                {contactData.title}
-              </h1>
-              <p className="text-lg font-cabin text-[40px] font-medium text-[#7A89C2] text-center">
-                {contactData.description.split("\n").map((line, index) => (
-                  <span key={index}>
-                    {line}
-                    <br />
-                  </span>
-                ))}
-              </p>
-              <button
-                className="mb-10 w-full max-w-[200px] h-[45px] flex items-center justify-center border border-[#7A89C2] bg-[#7A89C2] rounded-lg text-lg text-white font-semibold"
-                onClick={() => (window.location.href = contactData.button_link)}
-              >
-                {contactData.button_text}
-              </button>
+
+      {/* Parent Container with max-w and centering */}
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16">
+
+        {/* Hero Section */}
+        <section
+          className="flex-grow bg-cover bg-center h-[500px] w-full"
+          style={{ backgroundImage: `url(${contactData.image})` }}
+        >
+          <div className="flex items-center justify-center h-full">
+            <div className="relative flex flex-col items-center justify-center w-full h-auto p-4">
+              <div className="flex flex-col items-center gap-8 w-full">
+                <h1 className="font-cabin text-[50px] font-medium text-[#7A89C2] text-center">
+                  {contactData.title}
+                </h1>
+                <p className="text-lg font-cabin text-[40px] font-medium text-[#7A89C2] text-center">
+                  {contactData.description.split("\n").map((line, index) => (
+                    <span key={index}>
+                      {line}
+                      <br />
+                    </span>
+                  ))}
+                </p>
+                <button
+                  className="mb-10 w-full max-w-[200px] h-[45px] flex items-center justify-center border border-[#7A89C2] bg-[#7A89C2] rounded-lg text-lg text-white font-semibold"
+                  onClick={() => (window.location.href = contactData.button_link)}
+                >
+                  {contactData.button_text}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Body */}
-      <section className="flex flex-col md:flex-row justify-center gap-4 mt-[-100px] mb-10 relative z-10 p-4">
-        {/* Contact Us Cards */}
-        <div className="w-full md:w-[600px] rounded-[25px] bg-white shadow-lg flex flex-col items-center p-6">
-          <img src={ourTeamData.image} alt="phone" className="w-[98px] h-[98px] mt-4" />
-          <h1 className="font-cabin text-2xl font-bold text-black mt-2 text-center">{ourTeamData.title}</h1>
-          <p className="w-full font-cabin text-[18px] text-center text-black mt-4">
-            {ourTeamData.description}
-          </p>
-          <div className="flex items-center mt-4">
-            <img src={smallphone} alt="phone" className="w-[24px] h-[24px] mr-2 rotate-180" />
-            <span className="font-cabin text-[20px] text-[#7A89C2]">{ourTeamData.value}</span>
+        {/* Body Section */}
+        <section className="flex flex-col md:flex-row justify-center gap-4 mt-[-100px] mb-10 relative z-10 p-4">
+          {/* Contact Us Cards */}
+          <div className="w-full md:w-[600px] rounded-[25px] bg-white shadow-lg flex flex-col items-center p-6">
+            <img src={ourTeamData.image} alt="phone" className="w-[98px] h-[98px] mt-4" />
+            <h1 className="font-cabin text-2xl font-bold text-black mt-2 text-center">{ourTeamData.title}</h1>
+            <p className="w-full font-cabin text-[18px] text-center text-black mt-4">
+              {ourTeamData.description}
+            </p>
+            <div className="flex items-center mt-4">
+              <img src={smallphone} alt="phone" className="w-[24px] h-[24px] mr-2 rotate-180" />
+              <span className="font-cabin text-[20px] text-[#7A89C2]">{ourTeamData.value}</span>
+            </div>
+          </div>
+
+          <div className="w-full md:w-[600px] rounded-[25px] bg-white shadow-lg flex flex-col items-center p-6">
+            <img src={customerSupportData.image} alt="email" className="w-[98px] h-[98px] mt-4" />
+            <h1 className="font-cabin text-2xl font-bold text-center text-black mt-2">Contact Customer Support</h1>
+            <p className="w-full font-cabin text-[18px] text-center text-black mt-4">
+              {customerSupportData.description}
+            </p>
+            <div className="flex items-center mt-4">
+              <img src={smallemail} alt="email" className="w-[24px] h-[24px] mr-2" />
+              <span className="font-cabin text-[20px] text-[#7A89C2]">hello@empowerher.energy</span>
+            </div>
+            <div className="flex items-center mt-4">
+              <img src={location} alt="location" className="w-[24px] h-[24px] mr-2" />
+              <span className="font-cabin text-[20px] text-[#7A89C2]">Beirut, Lebanon</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Conditional Rendering of Contact Form */}
+        <div className="flex flex-col mt-14">
+          <div className="flex items-center gap-2 justify-center md:justify-start ml-14">
+            {["Contact Us", "Nomination Form", "Partnership Form"].map((form, index) => (
+              <React.Fragment key={form}>
+                <p
+                  className={`text-xl md:text-2xl lg:text-3xl font-cabin cursor-pointer ${selectedForm === form ? 'text-[#7A89C2]' : 'text-black'}`}
+                  onClick={() => handleFormChange(form)} // Update the category based on selected form
+                >
+                  {form}
+                </p>
+                {index < 2 && <span className="text-xl md:text-2xl lg:text-3xl font-cabin">|</span>} {/* Add separator */}
+              </React.Fragment>
+            ))}
+          </div>
+
+          {/* Render selected form */}
+          <div className="flex flex-col mt-8">
+            {selectedForm === "Contact Us" && <ContactForm category={category} />}
+            {selectedForm === "Nomination Form" && <NominationForm category={category} />}
+            {selectedForm === "Partnership Form" && <PartnershipForm category={category} />}
           </div>
         </div>
 
-        <div className="w-full md:w-[600px] rounded-[25px] bg-white shadow-lg flex flex-col items-center p-6">
-          <img src={customerSupportData.image} alt="email" className="w-[98px] h-[98px] mt-4" />
-          <h1 className="font-cabin text-2xl font-bold text-center text-black mt-2">Contact Customer Support</h1>
-          <p className="w-full font-cabin text-[18px] text-center text-black mt-4">
-            {customerSupportData.description}
-          </p>
-          <div className="flex items-center mt-4">
-            <img src={smallemail} alt="email" className="w-[24px] h-[24px] mr-2" />
-            <span className="font-cabin text-[20px] text-[#7A89C2]">hello@empowerher.energy</span>
-          </div>
-          <div className="flex items-center mt-4">
-            <img src={location} alt="location" className="w-[24px] h-[24px] mr-2" />
-            <span className="font-cabin text-[20px] text-[#7A89C2]">Beirut, Lebanon</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Conditional Rendering of Contact Form */}
-      <div className="flex flex-col mt-14 px-4">
-        <div className="flex items-center gap-2 ml-0 md:ml-16">
-          {["Contact Us", "Nomination Form", "Partnership Form"].map((form, index) => (
-            <React.Fragment key={form}>
-              <p
-                className={`text-xl md:text-2xl lg:text-3xl font-cabin cursor-pointer ml-2 ${selectedForm === form ? 'text-[#7A89C2]' : 'text-black'}`}
-                onClick={() => handleFormChange(form)} // Update the category based on selected form
-              >
-                {form}
-              </p>
-              {index < 2 && <span className="text-xl md:text-2xl lg:text-3xl font-cabin">|</span>} {/* Add separator */}
-            </React.Fragment>
-          ))}
-        </div>
-
-        {/* Render selected form */}
-        {selectedForm === "Contact Us" && <ContactForm category={category} />}
-        {selectedForm === "Nomination Form" && <NominationForm category={category} />}
-        {selectedForm === "Partnership Form" && <PartnershipForm category={category} />}
       </div>
 
       {/* Footer */}

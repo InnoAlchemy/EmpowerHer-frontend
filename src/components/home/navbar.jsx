@@ -71,8 +71,8 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-md py-5 w-full">
-      {/* Container for content */}
-      <div className="max-w-screen-l mx-auto flex items-center justify-between px-4 sm:px-8">
+      {/* Parent Container with max-w and centering */}
+      <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 sm:px-8 lg:px-16">
         {/* Logo */}
         <div className="flex items-center">
           <NavLink to="/">
