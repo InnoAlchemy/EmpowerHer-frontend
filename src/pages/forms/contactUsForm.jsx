@@ -137,19 +137,19 @@ const ContactForm = ({ category }) => {
           <div className="absolute bottom-2 left-2 flex items-center gap-2 ml-4">
             <label
               htmlFor="file-upload"
-              className="flex items-center cursor-pointer text-[#00000] text-lg"
+              className="flex items-center cursor-pointer text-[#00000099] text-lg"
             >
               <MdAttachFile className="mr-1 mb-2" />
               
             </label>
             {selectedFile && (
-              <div className="bg-gray-200 rounded-[30px] p-2 flex items-center">
+              <div className="bg-[#EADFE2] rounded-[30px] p-2 mb-2 flex items-center">
                 <span className="text-sm text-black mr-2">
                   {selectedFile.name} ({(selectedFile.size / 1024).toFixed(2)} KB)
                 </span>
                 <AiOutlineClose
                   onClick={handleFileRemove}
-                  className="cursor-pointer text-red-600"
+                  className="cursor-pointer text-[#7A89C2]"
                 />
               </div>
             )}
