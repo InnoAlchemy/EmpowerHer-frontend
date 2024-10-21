@@ -144,8 +144,6 @@ const ContactForm = ({ category }) => {
                 className="flex items-center cursor-pointer text-[#00000099] text-lg"
               >
                 <MdAttachFile className="mr-1 mb-2" />
-                {/* Optional: Add text like "Attach File" */}
-                {/* <span>Attach File</span> */}
               </label>
               {selectedFile && (
                 <div className="bg-[#EADFE2] rounded-[30px] p-2 mb-2 flex items-center">
@@ -164,12 +162,11 @@ const ContactForm = ({ category }) => {
               id="file-upload"
               className="hidden"
               onChange={handleFileChange}
-              accept=".txt" // Limit to text files
+              accept=".txt, .pdf, .doc, .docx, .xls, .xlsx, .jpeg, .jpg, .png, .gif, .webp, .zip, .rar" // Allow all supported file types
             />
           </div>
-          {/* Optional: Inform users they can provide either a message or a file */}
           <p className="text-sm text-gray-500">
-            You can provide either a message or upload a text file.
+            You can provide either a message or upload a file.
           </p>
         </div>
 

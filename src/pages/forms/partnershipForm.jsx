@@ -256,7 +256,7 @@ const PartnershipForm = () => {
               id="file-upload"
               className="hidden"
               onChange={handleFileChange}
-              accept=".txt" // Limit to text files
+              accept=".txt, .pdf, .doc, .docx, .xls, .xlsx, .jpeg, .jpg, .png, .gif, .webp, .zip, .rar" // Allow all supported file types
             />
           </div>
         </div>
