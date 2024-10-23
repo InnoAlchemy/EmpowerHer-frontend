@@ -278,7 +278,7 @@ const EventDetails = () => {
             </div>
 
             {/* Proceed to Checkout Button */}
-            <div className="mt-10 flex justify-center">
+            <div className="mt-10 flex justify-center mb-10">
               <button
                 onClick={handleProceedClick}
                 className="w-[80%] md:w-[60%] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white py-3 text-center text-lg font-bold rounded-full focus:outline-none
@@ -294,11 +294,12 @@ const EventDetails = () => {
           // Payment Form Section
           <section className="w-full">
             {/* Payment Details Title with Back Button */}
-            <div className="text-center flex items-center justify-center mb-4">
-              <FaArrowLeft
+            <FaArrowLeft
                 onClick={handleBackClick}
                 className="cursor-pointer text-[#00000099] text-2xl mr-4"
               />
+            <div className="text-center flex items-center justify-center mb-4">
+             
               <h1 className="text-[#7A89C2] font-cabin text-[28px] md:text-[35px] font-bold">
                 Payment Details
               </h1>
@@ -409,12 +410,12 @@ const EventDetails = () => {
               ></div>
             </div>
 
-            {/* Proceed to Checkout Button */}
-            <div className="mt-10 flex justify-center">
+           {/* Proceed to Checkout Button */}
+           <div className="mt-10 flex justify-center mb-10"> 
               <button
                 onClick={handleProceedClick}
                 className="w-[80%] md:w-[60%] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white py-3 text-center text-lg font-bold rounded-full focus:outline-none
-                  hover:bg-gray-700 hover:text-[#7A89C2] transition duration-300 ease-in-out"
+                  hover:from-gray-700 hover:to-gray-700 hover:text-[#7A89C2] transition duration-300 ease-in-out" // Updated hover classes
               >
                 Proceed to Checkout
               </button>
