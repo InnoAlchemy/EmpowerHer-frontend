@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom'; // Ensure Navigate is imported
 import Home from './pages/Home';
-import ProgramsInitiatives from './pages/Programs&Initiatives';
+import ProgramsInitiatives from './pages/Programs-&-Initiatives/Programs&Initiatives';
 import GetInvolved from './pages/GetInvolved';
 import DiscoverHer from './pages/DiscoverHer';
 import InformationContacts from './pages/InformationContact';
@@ -14,6 +14,7 @@ import Approval from './pages/Auth-Pages/approval';
 import CheckEmail from './pages/Auth-Pages/check-email';
 import RegistrationPage from './pages/Auth-Pages/registration-splash';
 import NotFound from './pages/NotFound'; // Import your NotFound component
+import EventDetails from './pages/Programs-&-Initiatives/event-details';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
       <Route path='/' element={<Home />} />
       <Route path='/home' element={<Home />} />
       <Route path='/programs-initiatives' element={<ProgramsInitiatives />} />
+      <Route path='/programs-initiatives/event-details' element={<EventDetails />} />
       <Route path='/get-involved' element={<GetInvolved />} />
       <Route path='/discover-her' element={<DiscoverHer />} />
       <Route path='/contact-us' element={<InformationContacts />} />

@@ -17,7 +17,7 @@ const MembershipCard = () => {
         const response = await axios.get(
           "http://localhost:8080/api/combined_api_data_for_pages/get-involved"
         );
-        console.log("Membership API Response:", response.data.memberships);
+       
         setMemberships(response.data.memberships);
       } catch (error) {
         console.error("Error fetching membership data:", error);

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import Axios
-import Navbar from "../components/home/navbar";
-import Footer from "../components/home/footer";
-import MembershipCard from '../components/membershipCard';
-import { formatDateForArticles } from '../Helper-Functions/date-formatters';
-
+import Navbar from "../../components/home/navbar";
+import Footer from "../../components/home/footer";
+import MembershipCard from '../../components/membershipCard';
+import { formatDateForArticles } from '../../Helper-Functions/date-formatters';
+import { useNavigate } from 'react-router-dom';
 const ProgramsInitiatives = () => {
- 
+  const navigate = useNavigate(); 
   // State for the events section slider
   const [eventsCurrent, setEventsCurrent] = useState(0);
   const [workshopCurrent, setWorkshopsCurrent] = useState(0);
@@ -40,7 +40,14 @@ const ProgramsInitiatives = () => {
   }, []);
 
  
-
+  // Handler for Purchase Tickets button
+  const handlePurchaseTickets = (event) => {
+    navigate('/programs-initiatives/event-details', { state: { event } });
+  };
+  // Handler for Register Now button (Workshops)
+const handleRegisterNow = (workshop) => {
+  navigate('/programs-initiatives/event-details', { state: { workshop } });
+};
   // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +61,7 @@ const ProgramsInitiatives = () => {
         setUpcomingWorkshops(data.UpcomingEvents.upcomingWorkshops || []);
         setLoading(false);
       } catch (err) {
-        console.error("Error fetching data:", err);
+        
         setError("Failed to load data.");
         setLoading(false);
       }
@@ -314,7 +321,8 @@ const ProgramsInitiatives = () => {
         </div>
 
         {/* Purchase Button */}
-        <button className="w-[60%] py-2 bg-[#5B6CA2] text-white rounded-md hover:bg-white hover:text-red-500 transition-colors duration-300 text-sm">
+        <button className="w-[60%] py-2 bg-[#5B6CA2] text-white rounded-md hover:bg-white hover:text-red-500 transition-colors duration-300 text-sm"
+         onClick={() => handlePurchaseTickets(event)}>
           Purchase Tickets
         </button>
       </div>
@@ -523,7 +531,8 @@ const ProgramsInitiatives = () => {
         </div>
 
         {/* Register Button */}
-        <button className="w-[60%] py-2 bg-[#5B6CA2] text-white rounded-md hover:bg-white hover:text-red-500 transition-colors duration-300 text-sm">
+        <button className="w-[60%] py-2 bg-[#5B6CA2] text-white rounded-md hover:bg-white hover:text-red-500 transition-colors duration-300 text-sm"
+        onClick={() => handleRegisterNow(workshop)}>
           Register Now
         </button>
       </div>
