@@ -85,7 +85,7 @@ const InformationContacts = () => {
                   ))}
                 </p>
                 <button
-                  className="mb-10 w-full max-w-[200px] h-[45px] flex items-center justify-center border border-[#7A89C2] bg-[#7A89C2] rounded-lg text-lg text-white font-semibold"
+                  className="mb-10 w-full max-w-[200px] h-[45px] flex items-center justify-center border border-[#7A89C2] bg-[#7A89C2] rounded-lg text-lg text-white hover:bg-gray-100 hover:from-gray-100 hover:to-gray-100 hover:text-[#7A89C2] font-semibold"
                   onClick={() => (window.location.href = contactData.button_link)}
                 >
                   {contactData.button_text}

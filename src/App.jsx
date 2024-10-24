@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'; // Ensure Navigate i
 import Home from './pages/Home';
 import ProgramsInitiatives from './pages/Programs-&-Initiatives/Programs&Initiatives';
 import GetInvolved from './pages/GetInvolved';
-import DiscoverHer from './pages/DiscoverHer';
+import DiscoverHer from './pages/Discover-Her/DiscoverHer';
 import InformationContacts from './pages/InformationContact';
 import SignIn from './pages/Auth-Pages/signin';
 import SignUp from './pages/Auth-Pages/signup';
@@ -13,9 +13,9 @@ import PasswordResetPassword from './pages/Auth-Pages/reset-password-password';
 import Approval from './pages/Auth-Pages/approval';
 import CheckEmail from './pages/Auth-Pages/check-email';
 import RegistrationPage from './pages/Auth-Pages/registration-splash';
-import NotFound from './pages/NotFound'; // Import your NotFound component
+import NotFound from './pages/NotFound'; 
 import EventDetails from './pages/Programs-&-Initiatives/event-details';
-
+import ArticleDetail from './pages/Discover-Her/discover-her-article-full-page';
 const App = () => {
   return (
     
@@ -27,6 +27,7 @@ const App = () => {
       <Route path='/programs-initiatives/event-details' element={<EventDetails />} />
       <Route path='/get-involved' element={<GetInvolved />} />
       <Route path='/discover-her' element={<DiscoverHer />} />
+      <Route path='/discover-her-article-card-page' element={<ArticleDetail />} />
       <Route path='/contact-us' element={<InformationContacts />} />
       <Route path='/login' element={<SignIn />} />
       <Route path='/signup' element={<SignUp />} />

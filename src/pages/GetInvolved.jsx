@@ -69,8 +69,8 @@ const GetInvolved = () => {
               <button
                 className="bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] 
                            text-white text-lg sm:text-xl font-semibold 
-                           py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-lg border-t border-solid border-[#7A89C2] 
-                           hover:opacity-90 transition duration-300"
+                           py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-lg  
+                           hover:bg-gray-100 hover:from-gray-100 hover:to-gray-100 hover:text-[#7A89C2] transition duration-300"
                 onClick={() =>
                   (window.location.href = getInvolvedHeaderData
                     ? getInvolvedHeaderData.button_link

@@ -71,7 +71,7 @@ const Home = () => {
               <button
                 className="w-[281px] h-[45px] bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] 
                          text-white text-[20px] font-semibold leading-[24.3px] 
-                         py-[10px] px-[57px] rounded-[15px] border-t border-solid border-[#7A89C2] whitespace-nowrap"
+                         py-[10px] px-[57px] rounded-[15px] hover:bg-gray-100 hover:from-gray-100 hover:to-gray-100 hover:text-[#7A89C2] whitespace-nowrap"
                 onClick={() =>
                   (window.location.href = homeHeaderData
                     ? homeHeaderData.button_link

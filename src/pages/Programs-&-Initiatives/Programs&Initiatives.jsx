@@ -155,7 +155,7 @@ const handleRegisterNow = (workshop) => {
               {staticPages[0].button_text && staticPages[0].button_link && (
                 <a
                   href={staticPages[0].button_link}
-                  className="mt-6 w-64 sm:w-72 lg:w-80 h-14 bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] border border-[#7A89C2] rounded-2xl text-white flex items-center justify-center px-6 py-2 hover:opacity-90 transition-opacity duration-300"
+                  className="mt-6 w-64 sm:w-72 lg:w-80 h-14 bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] border border-[#7A89C2] rounded-2xl text-white flex items-center justify-center px-6 py-2 hover:bg-gray-100 hover:from-gray-100 hover:to-gray-100 hover:text-[#7A89C2] duration-300"
                 >
                   {staticPages[0].button_text}
                 </a>
@@ -174,7 +174,7 @@ const handleRegisterNow = (workshop) => {
           <h2 className="text-left text-[#7A89C2] font-cabin font-medium text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-0">
             Upcoming Events
           </h2>
-          <button className="bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white font-medium rounded-xl py-2 px-8 sm:px-12 border border-[#7A89C2]">
+          <button className="bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white font-medium rounded-xl py-2 px-8 sm:px-12 border border-[#7A89C2] hover:bg-gray-100 hover:from-gray-100 hover:to-gray-100 hover:text-[#7A89C2] transition-all duration-300">
             View All
           </button>
         </div>
@@ -373,7 +373,7 @@ const handleRegisterNow = (workshop) => {
           <h2 className="text-left text-[#7A89C2] font-cabin font-medium text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-0">
             Upcoming Workshops
           </h2>
-          <button className="bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white font-medium rounded-xl py-2 px-8 sm:px-12 border border-[#7A89C2]">
+          <button className="bg-gradient-to-r from-[#3F3F3F] to-[#7A89C2] text-white font-medium rounded-xl py-2 px-8 sm:px-12 border border-[#7A89C2] hover:bg-gray-100 hover:from-gray-100 hover:to-gray-100 hover:text-[#7A89C2] transition-all duration-300">
             View All
           </button>
         </div>
