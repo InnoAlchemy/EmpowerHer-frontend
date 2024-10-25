@@ -16,11 +16,14 @@ import RegistrationPage from './pages/Auth-Pages/registration-splash';
 import NotFound from './pages/NotFound'; 
 import EventDetails from './pages/Programs-&-Initiatives/event-details';
 import ArticleDetail from './pages/Discover-Her/discover-her-article-full-page';
+import Profile from './pages/Profile/profile';
+import ProfileAccount from './pages/Profile/profile-account';
+import ProfileTools from './pages/Profile/profile-tools';
+import { UserProvider } from './Helper-Functions/UserContext';
 const App = () => {
   return (
-    
+    <UserProvider>
     <Routes>
-      
       <Route path='/' element={<Home />} />
       <Route path='/home' element={<Home />} />
       <Route path='/programs-initiatives' element={<ProgramsInitiatives />} />
@@ -37,9 +40,18 @@ const App = () => {
       <Route path='/approval' element={<Approval />} />
       <Route path='/check-email' element={<CheckEmail />} />
       <Route path='/registration-splash' element={<RegistrationPage />} />
+
+      {/* Profile route with nested routes */}
+      <Route path='/profile' element={<Profile />}>
+        <Route path='profile-account' element={<ProfileAccount />} />
+        <Route path='profile-tools' element={<ProfileTools />} />
+      </Route>
+
       <Route path='/not-found' element={<NotFound />} /> 
       <Route path='*' element={<Navigate to='/not-found' replace />} /> 
     </Routes>
+    </UserProvider>
+
   );
 };
 

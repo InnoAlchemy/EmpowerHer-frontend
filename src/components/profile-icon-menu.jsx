@@ -1,26 +1,48 @@
-import React, { useState, useEffect } from "react";
+// UserMenu.js
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiUser } from "react-icons/fi"; // Feather Icons for profile icon
 import axios from "axios";
+import handleLogout from "../Helper-Functions/logout"; // Import the logout function
+import { useUser } from "../Helper-Functions/UserContext";
 
 const UserMenu = ({ userEmail, profileImage }) => {
+  const { user, setUser } = useUser();
   const navigate = useNavigate();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [username, setUsername] = useState(""); // State to store the fetched username
+  const menuRef = useRef(null); // Reference for detecting outside clicks
 
-  // Fetch the username from the API based on the userEmail
+  // Fetch user data from the API based on userEmail
   useEffect(() => {
     if (userEmail) {
       axios
         .get(`http://localhost:8080/api/users/email/${userEmail}`)
         .then((response) => {
-          setUsername(response.data.first_name + " " + response.data.last_name); // Assuming response contains first_name and last_name
+          const userData = response.data;
+          setUser({
+            username: `${userData.first_name} ${userData.last_name}`,
+            membership: userData.membership
+          });
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
         });
     }
-  }, [userEmail]);
+  }, [userEmail, setUser]);
+
+  // Close the dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Toggle UserMenu visibility
   const handleProfileClick = () => {
@@ -32,23 +54,18 @@ const UserMenu = ({ userEmail, profileImage }) => {
     setIsUserMenuOpen(false);
   };
 
-  // Handle user logout logic
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("email");
-    localStorage.removeItem("profileImage");
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("email");
-    sessionStorage.removeItem("profileImage");
-
-    // Navigate directly to /home after removing the token without page refresh
-    navigate("/home"); // Navigate to home after logout
+  // Navigate to the Profile page with user data
+  const goToProfile = () => {
+    navigate("/profile", { state: { username: user.username, membership: user.membership } });
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       {/* Profile Image, Arrow Icon, and Toggle Menu */}
-      <div className="flex items-center gap-2 cursor-pointer" onClick={handleProfileClick}>
+      <div
+        className="flex items-center gap-2 cursor-pointer"
+        onClick={handleProfileClick}
+      >
         {profileImage ? (
           <img
             src={profileImage}
@@ -74,29 +91,64 @@ const UserMenu = ({ userEmail, profileImage }) => {
 
       {/* Conditional Rendering of the Menu */}
       {isUserMenuOpen && (
-        <div className="absolute left-[-70px] mt-8 w-56 rounded-lg shadow-lg bg-gray-50">
-          <div className="rounded-t-lg p-4 text-[#7A89C2] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer p-2 rounded mb-2">
-            {username || userEmail} {/* Display username if fetched, otherwise userEmail */}
+        <div className="absolute left-[-80px] mt-10 w-56 rounded-lg shadow-lg bg-gray-50 z-50">
+          {/* Dropdown Items */}
+          <div
+            className="rounded-t-lg p-4 text-[#7A89C2] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer"
+            onClick={goToProfile} 
+          >
+            {user.username || userEmail} {/* Display username if fetched, otherwise userEmail */}
           </div>
+
           {/* Line separator */}
-          <hr className="my-2 border-t border-gray-300" />
-            <div
-              className="text-[#7A89C2] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer p-2 rounded mb-2"
-              onClick={() => navigate("/profile")}
-            >
-              Settings
-            </div>
+          <hr className="my-0 border-t border-gray-300" />
 
-            {/* Line separator */}
-            <hr className="my-2 border-t border-gray-300" />
+          <div
+            className="w-full text-[#7A89C2] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer p-2"
+            onClick={goToProfile} 
+          >
+            Settings
+          </div>
 
-            <div
-              className="text-[#AB2849] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer p-2 rounded-b-lg"
-              onClick={handleLogout}
-            >
-              Log Out
-            </div>
-          
+          {/* Conditionally render Notifications and Chats for Corporate Membership */}
+          {user.membership && user.membership.type === "corporate" && (
+            <>
+              {/* Line separator */}
+              <hr className="my-0 border-t border-gray-300" />
+
+              <div
+                className="w-full text-[#7A89C2] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer p-2"
+                onClick={() => navigate("/notifications")}
+              >
+                Notifications
+              </div>
+
+              {/* Line separator */}
+              <hr className="my-0 border-t border-gray-300" />
+
+              <div
+                className="w-full text-[#7A89C2] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer p-2 rounded-b-lg"
+                onClick={() => navigate("/chats")}
+              >
+                Chats
+              </div>
+            </>
+          )}
+
+          {/* If membership is not corporate, add Log Out as the last item */}
+          {(!user.membership || user.membership.type !== "corporate") && (
+            <>
+              {/* Line separator */}
+              <hr className="my-0 border-t border-gray-300" />
+
+              <div
+                className="w-full text-[#AB2849] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer p-2 rounded-b-lg"
+                onClick={() => handleLogout()(navigate)}
+              >
+                Log Out
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

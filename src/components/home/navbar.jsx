@@ -1,8 +1,8 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/EmpowerHer-logo.png";
 import UserMenu from "../profile-icon-menu"; // Adjust path accordingly
+import { FiMenu, FiX } from "react-icons/fi"; // Icons for hamburger and close
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -10,6 +10,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [profileImage, setProfileImage] = useState(null);
+  const mobileMenuRef = useRef(null); // Reference for detecting outside clicks
 
   useEffect(() => {
     const checkLoginStatus = () => {
@@ -41,8 +42,42 @@ const Navbar = () => {
     };
   }, []);
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscape);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isMobileMenuOpen]);
+
+  // Toggle Mobile Menu visibility
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+
   return (
-    <nav className="bg-white shadow-md py-5 w-full">
+    <nav className="bg-white shadow-md py-4 w-full fixed top-0 left-0 z-40">
       <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 sm:px-8 lg:px-16">
         {/* Logo */}
         <div className="flex items-center">
@@ -50,21 +85,19 @@ const Navbar = () => {
             <img
               src={logo}
               alt="Empower Her Energy Logo"
-              className="w-44 h-12"
+              className="w-40 h-12 object-contain"
             />
           </NavLink>
         </div>
 
-        {/* Navigation Links */}
-        <ul className="hidden md:flex gap-10 items-center">
+        {/* Desktop Navigation Links */}
+        <ul className="hidden lg:flex gap-8 items-center">
           {/* Home */}
           <li className="font-normal text-lg leading-[24.3px] cursor-pointer hover:opacity-80 transition-opacity">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive
-                  ? "text-black"
-                  : "text-[#7A89C2]"
+                isActive ? "text-black" : "text-[#7A89C2]"
               }
             >
               Home
@@ -76,9 +109,7 @@ const Navbar = () => {
             <NavLink
               to="/programs-initiatives"
               className={({ isActive }) =>
-                isActive
-                  ? "text-black"
-                  : "text-[#7A89C2]"
+                isActive ? "text-black" : "text-[#7A89C2]"
               }
             >
               Programs & Initiatives
@@ -90,9 +121,7 @@ const Navbar = () => {
             <NavLink
               to="/get-involved"
               className={({ isActive }) =>
-                isActive
-                  ? "text-black"
-                  : "text-[#7A89C2]"
+                isActive ? "text-black" : "text-[#7A89C2]"
               }
             >
               Get Involved
@@ -104,9 +133,7 @@ const Navbar = () => {
             <NavLink
               to="/discover-her"
               className={({ isActive }) =>
-                isActive
-                  ? "text-black"
-                  : "text-[#7A89C2]"
+                isActive ? "text-black" : "text-[#7A89C2]"
               }
             >
               Discover Her
@@ -118,9 +145,7 @@ const Navbar = () => {
             <NavLink
               to="/contact-us"
               className={({ isActive }) =>
-                isActive
-                  ? "text-black"
-                  : "text-[#7A89C2]"
+                isActive ? "text-black" : "text-[#7A89C2]"
               }
             >
               Contact Us
@@ -130,43 +155,109 @@ const Navbar = () => {
 
         {/* Conditional Rendering: UserMenu or Login Button */}
         {isLoggedIn ? (
-          <UserMenu
-            userEmail={userEmail}
-            profileImage={profileImage}
-          />
+          <UserMenu userEmail={userEmail} profileImage={profileImage} />
         ) : (
           <NavLink to="/login">
-            <button className="bg-gradient-to-r from-gray-700 to-[#7A89C2] text-white py-1.5 px-4 sm:px-8 border border-[#7A89C2] rounded-[15px] hover:bg-gradient-to-l transition-all">
+            <button className="bg-gradient-to-r from-gray-700 to-[#7A89C2] text-white py-2 px-6 border border-[#7A89C2] rounded-full hover:bg-gradient-to-l transition-all">
               <span className="font-semibold text-lg">Login</span>
             </button>
           </NavLink>
         )}
 
         {/* Hamburger Menu for Mobile */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <button
             className="text-[#7A89C2] focus:outline-none"
-            aria-label="Open Menu"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Menu"
+            onClick={handleMobileMenuToggle}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
+            {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden">
-          {/* Mobile navigation menu goes here */}
+        <div
+          ref={mobileMenuRef}
+          className="lg:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-50 transition-transform duration-300 ease-in-out"
+        >
+          <ul className="flex flex-col items-center space-y-4 py-6">
+            {/* Home */}
+            <li className="w-full text-center">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "block w-full py-2 text-black bg-[#7A89C2] text-lg rounded transition-colors duration-200"
+                    : "block w-full py-2 text-[#7A89C2] text-lg hover:bg-[#7A89C2] hover:text-white transition-colors duration-200"
+                }
+                onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
+              >
+                Home
+              </NavLink>
+            </li>
+
+            {/* Programs & Initiatives */}
+            <li className="w-full text-center">
+              <NavLink
+                to="/programs-initiatives"
+                className={({ isActive }) =>
+                  isActive
+                    ? "block w-full py-2 text-black bg-[#7A89C2] text-lg rounded transition-colors duration-200"
+                    : "block w-full py-2 text-[#7A89C2] text-lg hover:bg-[#7A89C2] hover:text-white transition-colors duration-200"
+                }
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Programs & Initiatives
+              </NavLink>
+            </li>
+
+            {/* Get Involved */}
+            <li className="w-full text-center">
+              <NavLink
+                to="/get-involved"
+                className={({ isActive }) =>
+                  isActive
+                    ? "block w-full py-2 text-black bg-[#7A89C2] text-lg rounded transition-colors duration-200"
+                    : "block w-full py-2 text-[#7A89C2] text-lg hover:bg-[#7A89C2] hover:text-white transition-colors duration-200"
+                }
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Get Involved
+              </NavLink>
+            </li>
+
+            {/* Discover Her */}
+            <li className="w-full text-center">
+              <NavLink
+                to="/discover-her"
+                className={({ isActive }) =>
+                  isActive
+                    ? "block w-full py-2 text-black bg-[#7A89C2] text-lg rounded transition-colors duration-200"
+                    : "block w-full py-2 text-[#7A89C2] text-lg hover:bg-[#7A89C2] hover:text-white transition-colors duration-200"
+                }
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Discover Her
+              </NavLink>
+            </li>
+
+            {/* Contact Us */}
+            <li className="w-full text-center">
+              <NavLink
+                to="/contact-us"
+                className={({ isActive }) =>
+                  isActive
+                    ? "block w-full py-2 text-black bg-[#7A89C2] text-lg rounded transition-colors duration-200"
+                    : "block w-full py-2 text-[#7A89C2] text-lg hover:bg-[#7A89C2] hover:text-white transition-colors duration-200"
+                }
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact Us
+              </NavLink>
+            </li>
+          </ul>
         </div>
       )}
     </nav>
