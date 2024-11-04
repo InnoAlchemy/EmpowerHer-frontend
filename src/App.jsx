@@ -1,3 +1,5 @@
+// src/App.jsx
+
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom'; // Ensure Navigate is imported
 import Home from './pages/Home';
@@ -19,39 +21,61 @@ import ArticleDetail from './pages/Discover-Her/discover-her-article-full-page';
 import Profile from './pages/Profile/profile';
 import ProfileAccount from './pages/Profile/profile-account';
 import ProfileTools from './pages/Profile/profile-tools';
-import { UserProvider } from './Helper-Functions/UserContext';
+import ProfilePosts from './pages/Profile/profile-posts';
+import ProfileNotifications from './pages/Profile/profile-notifications';
+import ProfileChats from './pages/Profile/profile-chats';
+import ProfileView from './pages/Profile/profile-view';
+import { UserProvider, useUser } from './Helper-Functions/UserContext';
+import { SocketProvider } from './Helper-Functions//socket-context';
+
 const App = () => {
   return (
     <UserProvider>
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/home' element={<Home />} />
-      <Route path='/programs-initiatives' element={<ProgramsInitiatives />} />
-      <Route path='/programs-initiatives/event-details' element={<EventDetails />} />
-      <Route path='/get-involved' element={<GetInvolved />} />
-      <Route path='/discover-her' element={<DiscoverHer />} />
-      <Route path='/discover-her-article-card-page' element={<ArticleDetail />} />
-      <Route path='/contact-us' element={<InformationContacts />} />
-      <Route path='/login' element={<SignIn />} />
-      <Route path='/signup' element={<SignUp />} />
-      <Route path='/verification' element={<Verification />} />
-      <Route path='/password-reset-request' element={<PasswordResetRequest />} />
-      <Route path='/password-reset' element={<PasswordResetPassword />} />
-      <Route path='/approval' element={<Approval />} />
-      <Route path='/check-email' element={<CheckEmail />} />
-      <Route path='/registration-splash' element={<RegistrationPage />} />
+      <SocketWrapper>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/programs-initiatives' element={<ProgramsInitiatives />} />
+          <Route path='/programs-initiatives/event-details' element={<EventDetails />} />
+          <Route path='/get-involved' element={<GetInvolved />} />
+          <Route path='/discover-her' element={<DiscoverHer />} />
+          <Route path='/discover-her-article-card-page' element={<ArticleDetail />} />
+          <Route path='/contact-us' element={<InformationContacts />} />
+          <Route path='/login' element={<SignIn />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/verification' element={<Verification />} />
+          <Route path='/password-reset-request' element={<PasswordResetRequest />} />
+          <Route path='/password-reset' element={<PasswordResetPassword />} />
+          <Route path='/approval' element={<Approval />} />
+          <Route path='/check-email' element={<CheckEmail />} />
+          <Route path='/registration-splash' element={<RegistrationPage />} />
 
-      {/* Profile route with nested routes */}
-      <Route path='/profile' element={<Profile />}>
-        <Route path='profile-account' element={<ProfileAccount />} />
-        <Route path='profile-tools' element={<ProfileTools />} />
-      </Route>
+          {/* Profile route with nested routes */}
+          <Route path='/profile' element={<Profile />}>
+            <Route path='profile-account' element={<ProfileAccount />} />
+            <Route path='profile-tools' element={<ProfileTools />} />
+            <Route path='profile-posts' element={<ProfilePosts />} />
+            <Route path='profile-notifications' element={<ProfileNotifications />} />
+            <Route path='profile-chats' element={<ProfileChats />} />
+            <Route path='profile-view' element={<ProfileView />} />
+          </Route>
 
-      <Route path='/not-found' element={<NotFound />} /> 
-      <Route path='*' element={<Navigate to='/not-found' replace />} /> 
-    </Routes>
+          <Route path='/not-found' element={<NotFound />} /> 
+          <Route path='*' element={<Navigate to='/not-found' replace />} /> 
+        </Routes>
+      </SocketWrapper>
     </UserProvider>
+  );
+};
 
+// Create a wrapper component to consume User context and pass userId to SocketProvider
+const SocketWrapper = ({ children }) => {
+  const { user } = useUser(); // Assuming useUser provides the authenticated user object
+
+  return (
+    <SocketProvider userId={user ? user.id : null}>
+      {children}
+    </SocketProvider>
   );
 };
 

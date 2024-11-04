@@ -6,7 +6,7 @@ import axios from "axios";
 import handleLogout from "../Helper-Functions/logout"; // Import the logout function
 import { useUser } from "../Helper-Functions/UserContext";
 
-const UserMenu = ({ userEmail, profileImage }) => {
+const UserMenu = ({ userEmail}) => {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -20,8 +20,14 @@ const UserMenu = ({ userEmail, profileImage }) => {
         .then((response) => {
           const userData = response.data;
           setUser({
+            id: userData.id,
             username: `${userData.first_name} ${userData.last_name}`,
-            membership: userData.membership
+            membership: userData.membership,
+            profile_picture: userData.profile_picture,
+            country:userData.country,
+            phone_number: userData.phone_number,
+            job_title: userData.job_title,
+            email: userData.email
           });
         })
         .catch((error) => {
@@ -66,9 +72,9 @@ const UserMenu = ({ userEmail, profileImage }) => {
         className="flex items-center gap-2 cursor-pointer"
         onClick={handleProfileClick}
       >
-        {profileImage ? (
+        {user.profile_picture ? (
           <img
-            src={profileImage}
+            src={user.profile_picture}
             alt="Profile"
             className="w-10 h-10 rounded-full object-cover"
             onError={handleImageError} // Handle image load error
@@ -118,7 +124,7 @@ const UserMenu = ({ userEmail, profileImage }) => {
 
               <div
                 className="w-full text-[#7A89C2] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer p-2"
-                onClick={() => navigate("/notifications")}
+                onClick={() => navigate("/profile/profile-notifications")}
               >
                 Notifications
               </div>
@@ -128,7 +134,7 @@ const UserMenu = ({ userEmail, profileImage }) => {
 
               <div
                 className="w-full text-[#7A89C2] text-center hover:bg-[#7A89C2] hover:text-white cursor-pointer p-2 rounded-b-lg"
-                onClick={() => navigate("/chats")}
+                onClick={() => navigate("/profile/profile-chats")}
               >
                 Chats
               </div>
