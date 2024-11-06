@@ -8,7 +8,7 @@ import { useSocket } from "../../Helper-Functions/socket-context"; // Ensure cor
 
 const ProfileNotifications = () => {
   const { user } = useUser();
-  const socket = useSocket();
+  const { socket } = useSocket();
   
   const [notifications, setNotifications] = useState([]);
   const [selectedOption, setSelectedOption] = useState("general");
@@ -69,7 +69,7 @@ const ProfileNotifications = () => {
         // Update the specific notification to reflect the accepted connection
         setNotifications((prevNotifications) =>
           prevNotifications.map((n) =>
-            n.id === notif.id ? { ...n, isConnected: true, is_read: true } : n
+            n.id === notif.id ? { ...n, isConnected: true } : n // Removed is_read: true
           )
         );
       } else {
@@ -89,6 +89,7 @@ const ProfileNotifications = () => {
     }
     return notif.type === selectedOption;
   });
+
 
   return (
     <div className="flex flex-col space-y-6 p-4 sm:p-6 max-w-screen-xl mx-auto w-full">
@@ -128,7 +129,7 @@ const ProfileNotifications = () => {
                 </div>
               ) : (
                 <img
-                  src={notif.user.imageUrl || "https://via.placeholder.com/40"}
+                  src={notif.user.profile_picture || "https://via.placeholder.com/40"}
                   alt={notif.user.username}
                   className="w-10 h-10 rounded-full"
                 />
@@ -183,24 +184,7 @@ const ProfileNotifications = () => {
                   )}
                 </>
               )}
-              {/* Optional: Mark as Read Button */}
-              {!notif.is_read && (
-                <button
-                  className="px-2 py-1 bg-gray-300 text-gray-700 rounded-md"
-                  onClick={async () => {
-                    try {
-                      await axios.put(`http://localhost:8080/api/notifications/${notif.id}`);
-                      setNotifications((prev) =>
-                        prev.map((n) => (n.id === notif.id ? { ...n, is_read: true } : n))
-                      );
-                    } catch (error) {
-                      console.error("Error marking notification as read:", error);
-                    }
-                  }}
-                >
-                  Mark as Read
-                </button>
-              )}
+        
             </div>
           </div>
         ))}
