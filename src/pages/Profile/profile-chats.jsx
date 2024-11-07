@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { FiUser, FiSearch, FiArrowLeft } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../../Helper-Functions/UserContext";
 import axios from "axios"; 
 import { toast } from "react-hot-toast";
 import ToastProvider from "../../components/toasterMessages";
 
 const ProfileChats = () => {
+  const navigate = useNavigate();
   const { user } = useUser();
   const [searchData, setSearchData] = useState([]); // For search results
   const [messages, setMessages] = useState([]); // For all messages
@@ -136,8 +137,18 @@ const ProfileChats = () => {
 
         {!searchQuery && latestSearchedUser && (
           <div className="space-y-4 mt-4">
-            <div className="flex items-center space-x-4">
-              <Link to="/profile/profile-view" className="w-12 h-12 sm:w-14 sm:h-14 bg-purple-200 rounded-full flex items-center justify-center hover:bg-purple-300">
+            <div 
+              className="flex items-center space-x-4 cursor-pointer"
+              onClick={() => navigate("/profile/profile-view", {
+                state: {
+                  id: latestSearchedUser.id,
+                  username: `${latestSearchedUser.first_name} ${latestSearchedUser.last_name}`,
+                  email: latestSearchedUser.email,
+                  profile_picture: latestSearchedUser.profile_picture
+                }
+              })}
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-purple-200 rounded-full flex items-center justify-center hover:bg-purple-300">
                 {latestSearchedUser.profile_picture ? (
                   <img
                     src={latestSearchedUser.profile_picture}
@@ -147,7 +158,7 @@ const ProfileChats = () => {
                 ) : (
                   <FiUser size={24} className="text-[#7A89C2]" />
                 )}
-              </Link>
+              </div>
               <div className="text-left">
                 <span className="text-[#7A89C2] font-semibold text-base sm:text-lg">
                   {latestSearchedUser.first_name} {latestSearchedUser.last_name}
@@ -158,11 +169,6 @@ const ProfileChats = () => {
 
             {/* Retain the horizontal line */}
             <div className="border-t border-[#7A89C2]"></div>
-            
-            {/* Removed the static date below */}
-            {/* <div className="flex items-center justify-center text-[#00000099] text-sm sm:text-base">
-              {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-            </div> */}
           </div>
         )}
 
@@ -171,8 +177,18 @@ const ProfileChats = () => {
             searchData.length > 0 ? (
               searchData.map((chat) => (
                 <div key={chat.id} className="flex items-center justify-between p-3 border-b border-[#7A89C2]">
-                  <div className="flex items-center space-x-4">
-                    <Link to="/profile/profile-view" className="w-12 h-12 sm:w-14 sm:h-14 bg-purple-200 rounded-full flex items-center justify-center hover:bg-purple-300">
+                  <div 
+                    className="flex items-center space-x-4 cursor-pointer"
+                    onClick={() => navigate("/profile/profile-view", {
+                      state: {
+                        id: chat.id,
+                        username: `${chat.first_name} ${chat.last_name}`,
+                        email: chat.email,
+                        profile_picture: chat.profile_picture
+                      }
+                    })}
+                  >
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-purple-200 rounded-full flex items-center justify-center hover:bg-purple-300">
                       {chat.profile_picture ? (
                         <img
                           src={chat.profile_picture}
@@ -182,7 +198,7 @@ const ProfileChats = () => {
                       ) : (
                         <FiUser size={24} className="text-[#7A89C2]" />
                       )}
-                    </Link>
+                    </div>
                     <div>
                       <span className="text-[#00000099] font-semibold text-sm sm:text-base">{chat.first_name} {chat.last_name}</span>
                       <div className="flex space-x-2">
@@ -225,8 +241,17 @@ const ProfileChats = () => {
                     </div>
                     {groupedMessages[date].map((chat) => (
                       <div key={chat.id} className="flex items-center justify-between p-2 sm:p-3 hover:bg-gray-100 rounded-md">
-                        <div className="flex items-center space-x-3 sm:space-x-4">
-                          <Link to="/profile/profile-view" className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-200 rounded-full flex items-center justify-center hover:bg-purple-300">
+                        <div 
+                          className="flex items-center space-x-3 sm:space-x-4 cursor-pointer"
+                          onClick={() => navigate("/profile/profile-view", {
+                            state: {
+                              id: chat.id,
+                              username: `${chat.sender?.first_name} ${chat.sender?.last_name}`,
+                              email: chat.sender?.email
+                            }
+                          })}
+                        >
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-200 rounded-full flex items-center justify-center hover:bg-purple-300">
                             {chat.sender && chat.sender.profile_picture ? (
                               <img
                                 src={chat.sender.profile_picture}
@@ -236,7 +261,7 @@ const ProfileChats = () => {
                             ) : (
                               <FiUser size={20} className="text-[#7A89C2]" />
                             )}
-                          </Link>
+                          </div>
                           <div>
                             <span className="text-[#00000099] font-semibold text-sm sm:text-base">
                               {chat.sender?.first_name} {chat.sender?.last_name}

@@ -5,29 +5,69 @@ import { FaRegHeart, FaRegComment, FaUpload, FaPlus } from "react-icons/fa";
 import AddPost from "../../components/Add-posts";
 import { useUser } from "../../Helper-Functions/UserContext";
 
-const ProfilePosts = ({ showAddButton = true, showTitle = true, imageHeight = "20rem" }) => {
+const ProfilePosts = ({ showAddButton = true, showTitle = true, imageHeight = "20rem", userProfileId }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [counts, setCounts] = useState({}); // New state for counts
   const { user } = useUser();
 
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => setIsFormOpen(false);
 
+  // Function to fetch counts for a single post
+  const fetchCounts = async (post_id) => {
+    try {
+      const [likesRes, commentsRes, sharesRes] = await Promise.all([
+        axios.get(`http://localhost:8080/api/likes/likes-count/${post_id}`),
+        axios.get(`http://localhost:8080/api/comments/comment-count/${post_id}`),
+        axios.get(`http://localhost:8080/api/shares/share-count/${post_id}`),
+      ]);
+
+      return {
+        likes: likesRes.data.likeCount,
+        comments: commentsRes.data.commentCount,
+        shares: sharesRes.data.shareCount,
+      };
+    } catch (error) {
+      console.error(`Error fetching counts for post ${post_id}:`, error);
+      return {
+        likes: 0,
+        comments: 0,
+        shares: 0,
+      };
+    }
+  };
+
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/posts/by-user-id/${user.id}`);
-      setPosts(response.data);
+      const userId = userProfileId || user.id; // Use userProfileId if available, otherwise fallback to user.id
+      const response = await axios.get(`http://localhost:8080/api/posts/by-user-id/${userId}`);
+      const postsData = response.data;
+      setPosts(postsData);
+
+      // Initialize an empty object to store counts
+      const countsData = {};
+
+      // Create an array of promises to fetch counts for all posts
+      const countsPromises = postsData.map(async (post) => {
+        const counts = await fetchCounts(post.id);
+        countsData[post.id] = counts;
+      });
+
+      // Wait for all counts to be fetched
+      await Promise.all(countsPromises);
+
+      // Update the counts state
+      setCounts(countsData);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
   };
 
-  // Fetch posts initially
   useEffect(() => {
     fetchPosts();
-  }, [user.id]);
+  }, [user.id, userProfileId]); // Add userProfileId as a dependency
 
-  // Called after a post is created in AddPost to refresh the list
   const handlePostCreated = () => {
     fetchPosts();
   };
@@ -50,13 +90,9 @@ const ProfilePosts = ({ showAddButton = true, showTitle = true, imageHeight = "2
         </div>
       )}
 
-      {/* Responsive Posts Grid */}
       <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
-          <div
-            key={post.id}
-            className="bg-[#7A89C240] rounded-lg overflow-hidden shadow-lg"
-          >
+          <div key={post.id} className="bg-[#7A89C240] rounded-lg overflow-hidden shadow-lg">
             <img
               src={post.media_url || PostImage}
               alt="Post"
@@ -68,20 +104,18 @@ const ProfilePosts = ({ showAddButton = true, showTitle = true, imageHeight = "2
               <p className="text-sm text-[#00000099]">
                 {post.content || "No content available for this post."}
               </p>
-              
-              {/* Interaction Icons */}
               <div className="flex items-center space-x-4 mt-4 text-[#7A89C2] text-sm">
                 <div className="flex items-center space-x-1">
                   <FaRegHeart />
-                  <span>12.1k</span>
+                  <span>{counts[post.id]?.likes || 0}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <FaRegComment />
-                  <span>200</span>
+                  <span>{counts[post.id]?.comments || 0}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <FaUpload />
-                  <span>1k</span>
+                  <span>{counts[post.id]?.shares || 0}</span>
                 </div>
               </div>
             </div>
